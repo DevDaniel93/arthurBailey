@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         padding: SIZES.fifteen,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: SIZES.twentyFive,
+        borderRadius: SIZES.ten,
         marginTop: SIZES.ten
     },
     txt: {

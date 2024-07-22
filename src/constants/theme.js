@@ -7,7 +7,7 @@ export const COLORS = {
     defaultBtnColor: "#ffffff",
     lightBackground: "#ffffff",
     darkBackground: "#000000",
-    primary: "#FF856A",
+    primary: "#004961",
     purple: "#4e1789",
     lightPurple: "#871af6",
     darkPurple: "#382649",
