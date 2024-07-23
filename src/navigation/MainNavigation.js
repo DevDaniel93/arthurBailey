@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import { COLORS, SCREENS } from "../constants";
 import Home from "../screens/Home";
+import LoginAndSignUp from "../screens/auth/LoginAndSignUp";
+import ResetPassword from "../screens/auth/ResetPassword";
+import ContactUs from "../screens/contactUs/ContactUs";
 
 
 
@@ -27,9 +30,12 @@ export default function MainNavigation() {
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={screenOptions}
-                initialRouteName={SCREENS.Home}
+                initialRouteName={SCREENS.LoginAndSignUp}
             >
                 <Stack.Screen name={SCREENS.Home} component={Home} />
+                <Stack.Screen name={SCREENS.LoginAndSignUp} component={LoginAndSignUp} />
+                <Stack.Screen name={SCREENS.ResetPassword} component={ResetPassword} />
+                <Stack.Screen name={SCREENS.ContactUs} component={ContactUs} />
 
             </Stack.Navigator>
 

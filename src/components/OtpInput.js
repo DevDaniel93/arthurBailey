@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { COLORS, SIZES } from '../constants';
 
 const OtpInput = ({ codeLength = 6, onCodeFilled }) => {
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     input: {
         width: SIZES.twentyFive * 2,
         height: SIZES.twentyFive * 2,
-        borderWidth: 1,
-        borderRadius: SIZES.ten,
+        borderWidth: 2,
+        borderRadius: SIZES.twentyFive,
         borderColor: COLORS.primary,
         textAlign: 'center',
     },

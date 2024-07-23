@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
-
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Icon, IconType } from '../components';
 import { COLORS } from '../constants';
-import { FONTS, getTheme, height, SIZES, width } from '../constants/theme';
-import { MyTouchableOpacity, Card, Icon, IconType } from '../components';
-import { useSelector } from 'react-redux';
+import { FONTS, height, SIZES, width } from '../constants/theme';
 
 export default function EditText(props) {
     const [enableSecureEntry, setEnableSecureEntry] = useState(true);
     const [focusColor, setFocusColor] = useState(COLORS.charcoalGrey);
-    const theme = useSelector(state => state.Theme.theme)
-    const currentTheme = getTheme(theme)
 
     return (
         <View style={[styles.textInputView, props.styleTxtArea]}>
             {props?.label
                 &&
-                <Text style={[styles.textLabel, { color: focusColor !== currentTheme.charcoalGrey ? focusColor : currentTheme.defaultTextColor }]}>
+                <Text style={[styles.textLabel, props.labelTxtStyle]}>
                     {props.label}
                     {props?.required &&
                         <Text style={styles.required}> *</Text>}
@@ -28,14 +24,14 @@ export default function EditText(props) {
                         <Icon
                             type={props.type}
                             name={props.name}
+                            color={props.color}
                             style={{
                                 marginRight: SIZES.ten * 0.7,
-                                fontSize: SIZES.twenty * 1.1,
+                                fontSize: SIZES.twenty * 1.3,
                             }}
                         />
                     ) : null}
                     <TextInput
-
                         {...props}
                         ref={props.ref}
                         multiline={props?.multiline}
@@ -45,7 +41,7 @@ export default function EditText(props) {
                         placeholder={props?.placeholder}
                         onFocus={() => { setFocusColor(COLORS.primary) }}
                         onBlur={() => { setFocusColor(COLORS.charcoalGrey) }}
-                        style={[FONTS.mediumFont14, styles.textInput, { color: currentTheme.defaultTextColor }, props?.style]}
+                        style={[FONTS.mediumFont14, styles.textInput, props?.style]}
                     />
                     {props.password ? (
                         <TouchableOpacity
@@ -55,11 +51,7 @@ export default function EditText(props) {
                             <Icon
                                 name={enableSecureEntry ? 'eye-slash' : 'eye'}
                                 type={IconType.FontAwesome}
-                                style={{
-                                    fontSize: 20,
-                                    color: currentTheme.defaultTextColor,
-                                    marginLeft: 5,
-                                }}
+                                style={{ fontSize: 20, marginLeft: 5, }}
                             />
                         </TouchableOpacity>
                     ) : null}
@@ -72,7 +64,6 @@ export default function EditText(props) {
 
 const styles = StyleSheet.create({
     textInputView: {
-        // width: '100%',
         justifyContent: 'center',
         marginTop: SIZES.ten,
         borderRadius: Math.sqrt(width + height),
@@ -83,8 +74,8 @@ const styles = StyleSheet.create({
         padding: SIZES.five,
         flexDirection: "row",
         alignItems: "center",
-        borderWidth: 1,
-        borderRadius: SIZES.ten,
+        backgroundColor: COLORS.backgroundGray,
+        borderRadius: SIZES.five,
         paddingHorizontal: SIZES.fifteen
     },
     textInput: {

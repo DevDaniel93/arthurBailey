@@ -8,6 +8,7 @@ export const COLORS = {
     lightBackground: "#ffffff",
     darkBackground: "#000000",
     primary: "#004961",
+    secondary: "#D8DFEB",
     purple: "#4e1789",
     lightPurple: "#871af6",
     darkPurple: "#382649",
@@ -30,7 +31,7 @@ export const COLORS = {
     red: "#FF0000",
     cyan: '#21D4B4',
     lightGray: '#C0C0C0',
-    backgroundGray: "#DCDCDC",
+    backgroundGray: "#EFEFEF",
     yellowTxt: "#FFBF00",
 };
 
@@ -132,12 +133,13 @@ export const FONTFAMILY = {
 export const IMAGES = {
     icon: require("../assets/images/icon.png"),
     logo: require("../assets/images/logo.png"),
+    logoBg: require("../assets/images/logoBg.png"),
     avatar: require("../assets/images/avatar.png"),
     user: require("../assets/images/user.png"),
     ProductImage: require("../assets/images/ProductImage.png"),
     CardBg: require("../assets/images/cardBg.png"),
     lockBg: require("../assets/images/lockBg.png"),
-    lock: require("../assets/images/lock.png"),
+    lock: require("../assets/images/lock.png")
 
 };
 
@@ -145,6 +147,9 @@ export const IMAGES = {
 export const SCREENS = {
 
     Home: "Home",
+    LoginAndSignUp: "LoginAndSignUp",
+    ResetPassword: "ResetPassword",
+    ContactUs: "ContactUs",
 
 
 };

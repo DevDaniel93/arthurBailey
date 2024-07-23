@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { COLORS, SIZES } from '../constants'
-import Icon, { IconType } from './Icons'
+import Icon from './Icons'
 
 
 
