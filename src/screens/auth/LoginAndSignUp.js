@@ -119,7 +119,7 @@ const LoginAndSignUp = (props) => {
                         </TouchableOpacity>
                         <CustomButton
                             label={"Log In"}
-                            onPress={() => navigation.navigate(SCREENS.Home)}
+                            onPress={() => navigation.navigate(SCREENS.Drawer)}
                         />
                     </>
                 }

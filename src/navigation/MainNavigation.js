@@ -9,6 +9,8 @@ import ContactUs from "../screens/contactUs/ContactUs";
 import TermsAndConditions from "../screens/content/TermsAndConditions";
 import Profile from "../screens/profile/Profile";
 import EditProfile from "../screens/profile/EditProfile";
+import DrawerNavigator from "./drawer/DrawerNav";
+import BookDetail from "../screens/book/BookDetail";
 
 
 
@@ -35,13 +37,15 @@ export default function MainNavigation() {
                 screenOptions={screenOptions}
                 initialRouteName={SCREENS.LoginAndSignUp}
             >
-                <Stack.Screen name={SCREENS.Home} component={Home} />
+                <Stack.Screen name={SCREENS.Drawer} component={DrawerNavigator} />
+
                 <Stack.Screen name={SCREENS.LoginAndSignUp} component={LoginAndSignUp} />
                 <Stack.Screen name={SCREENS.ResetPassword} component={ResetPassword} />
                 <Stack.Screen name={SCREENS.ContactUs} component={ContactUs} />
                 <Stack.Screen name={SCREENS.TermsAndConditions} component={TermsAndConditions} />
                 <Stack.Screen name={SCREENS.Profile} component={Profile} />
                 <Stack.Screen name={SCREENS.EditProfile} component={EditProfile} />
+                <Stack.Screen name={SCREENS.BookDetail} component={BookDetail} />
 
             </Stack.Navigator>
 

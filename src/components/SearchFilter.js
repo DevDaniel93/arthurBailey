@@ -9,49 +9,36 @@ export default function SearchFilter(props) {
 
 
     return (
-        <View style={styles.conatiner}>
-            <View style={styles.InnerConatiner}>
 
-                <Icon
-                    name={"search"}
-                    type={IconType.Feather}
-                    style={styles.icon}
-                />
+        <View style={styles.InnerConatiner}>
 
-                <TextInput
-                    style={styles.TextInput}
-                    placeholderTextColor={COLORS.gray}
-                    placeholder='Search Items Here...'
-                    {...props}
-                />
-            </View>
+            <Icon
+                name={"search"}
+                type={IconType.Feather}
+                style={styles.icon}
+            />
 
-            <TouchableOpacity
-                onPress={props.onPress}
-                style={styles.iconContiner}>
-                <Icon
-                    name={"sliders"}
-                    color={COLORS.white}
-                    type={IconType.FontAwesome}
-                />
-            </TouchableOpacity>
+            <TextInput
+                style={styles.TextInput}
+                placeholderTextColor={COLORS.gray}
+                placeholder='Search books by book title'
+                {...props}
+            />
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
-    conatiner: {
-        flexDirection: "row",
-        marginBottom: SIZES.fifteen
-    },
+
     InnerConatiner: {
         borderWidth: 1,
         flexDirection: "row",
         borderRadius: SIZES.five,
-        flex: 1,
         alignItems: "center",
         marginRight: SIZES.fifteen,
-        borderColor: COLORS.lightGray
+        borderColor: COLORS.lightGray,
+        marginTop: SIZES.ten
     },
     iconContiner: {
         backgroundColor: COLORS.primary,
@@ -67,6 +54,7 @@ const styles = StyleSheet.create({
     },
     TextInput: {
         color: COLORS.black,
-        flex: 1
+        flex: 1,
+
     }
 })

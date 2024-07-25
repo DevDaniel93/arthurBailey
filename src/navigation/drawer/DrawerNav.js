@@ -1,65 +1,32 @@
-import React, { useEffect } from 'react';
-import { createDrawerNavigator, DrawerActions } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { View, Text, Platform, StyleSheet } from 'react-native';
-import { Easing } from 'react-native-reanimated';
-
+import { View, Text } from 'react-native';
+import React from 'react';
 import CustomDrawer from './CustomDrawer';
-import BottamTab from '../bottamTab/BottamTab';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Home from '../../screens/home/Home';
 import { SCREENS } from '../../constants';
-import { Menu } from '../../constants/DrawerMenu';
-import { getTheme } from '../../constants/theme';
+import Library from '../../screens/library/Library';
+import SavedBooks from '../../screens/SavedBooks/SavedBooks';
+import MyInvoices from '../../screens/MyInvoices/MyInvoices';
+import Profile from '../../screens/profile/Profile';
+import AboutUs from '../../screens/content/AboutUs';
+import ContactUs from '../../screens/contactUs/ContactUs';
+import TermsAndConditions from '../../screens/content/TermsAndConditions';
 
-const config = {
-    animation: 'timing',
-    config: {
-        duration: 500,
-        easing: Easing.linear,
-    },
-};
-
-const closeConfig = {
-    animation: 'timing',
-    config: {
-        duration: 500,
-        easing: Easing.linear,
-    },
-};
-
-const fadeInAnimation = ({ current }) => ({
-    cardStyle: {
-        opacity: current.progress,
-    },
-});
 
 const Drawer = createDrawerNavigator();
-
 export default function DrawerNavigator() {
-    const theme = useSelector(state => state.Theme.theme);
-    const currentTheme = getTheme(theme);
-
     return (
-        <Drawer.Navigator
-            initialRouteName={SCREENS.BottamTab}
-            screenOptions={{
-                sceneContainerStyle: {
-                    backgroundColor: currentTheme.Background,
-                    flex: 1,
-                },
-                transitionSpec: {
-                    open: config,
-                    close: closeConfig,
-                },
-                cardStyleInterpolator: fadeInAnimation,
-            }}
-            drawerContent={(props) => <CustomDrawer {...props} />}
 
-        >
-            <Drawer.Screen name={SCREENS.BottamTab} component={BottamTab} options={{ headerShown: false, headerTitle: '' }} />
-            {Menu.map((item, index) => (
-                <Drawer.Screen key={index} name={item.route} component={item.component} options={{ headerShown: false, headerTitle: '' }} />
-            ))}
+        <Drawer.Navigator drawerContent={(props) => <CustomDrawer{...props} />}>
+            <Drawer.Screen name={SCREENS.Home} component={Home} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.library} component={Library} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.SavedBooks} component={SavedBooks} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.MyInvoices} component={MyInvoices} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.Profile} component={Profile} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.Aboutus} component={AboutUs} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.ContactUs} component={ContactUs} options={{ headerShown: false, headerTitle: '' }} />
+            <Drawer.Screen name={SCREENS.TermsAndConditions} component={TermsAndConditions} options={{ headerShown: false, headerTitle: '' }} />
+
         </Drawer.Navigator>
-    );
+    )
 }

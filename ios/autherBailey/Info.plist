@@ -24,6 +24,29 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+<array>
+    <string>assets/fonts/BebasNeue-Regular.ttf</string>
+    <string>assets/fonts/Century-Gothic.ttf</string>
+    <string>assets/fonts/Jost-Regular.ttf</string>
+    <string>assets/fonts/Poppins-Bold.ttf</string>
+    <string>assets/fonts/Poppins-Light.ttf</string>
+    <string>assets/fonts/Poppins-Medium.ttf</string>
+    <string>assets/fonts/Poppins-Regular.ttf</string>
+    <string>assets/fonts/Poppins-SemiBold.ttf</string>
+    <string>assets/fonts/QwitcherGrypen-Bold.ttf</string>
+    <string>assets/fonts/QwitcherGrypen-Regular.ttf</string>
+    <string>assets/fonts/Rakkas-Regular.ttf</string>
+    <string>assets/fonts/Raleway-Bold.ttf</string>
+    <string>assets/fonts/Raleway-ExtraBold.ttf</string>
+    <string>assets/fonts/Raleway-ExtraLight.ttf</string>
+    <string>assets/fonts/Raleway-Heavy.ttf</string>
+    <string>assets/fonts/Raleway-Light.ttf</string>
+    <string>assets/fonts/Raleway-Medium.ttf</string>
+    <string>assets/fonts/Raleway-Regular.ttf</string>
+    <string>assets/fonts/Raleway-SemiBold.ttf</string>
+    <string>assets/fonts/Raleway-Thin.ttf</string>
+</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->

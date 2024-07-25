@@ -35,71 +35,6 @@ export const COLORS = {
     yellowTxt: "#FFBF00",
 };
 
-export const LightTheme = {
-    defaultTextColor: "#000000",
-    defaultBtnColor: "#ffffff",
-    Background: "#ffffff",
-
-    onBackground: '#f7f5f5',
-    darkBackground: "#000000",
-    primary: "#FF856A",
-
-    purple: "#4e1789",
-    lightPurple: "#871af6",
-    darkPurple: "#382649",
-    purpleShade: "#3c225d",
-    textGrey: "#8a7e9a",
-    textColor: "#B46BFF",
-    brownGray: "#5d536a",
-    black: "#000000",
-    white: "#ffffff",
-    blue: "#0037c1",
-    gray: "#767577",
-    star: "#FFD700",
-    golden: "#FFD700",
-    trueGreen: "#1eaf08",
-    halfWhite: "#eeeeee",
-    charcoalGrey: "#4a4b4d",
-    veryLightpink: "#ffeef2",
-    transparent: "transparent",
-    pink: "#d323a0",
-    red: "#FF0000",
-    cyan: '#21D4B4',
-    lightGray: '#C0C0C0',
-    statusBarColor: 'dark-content',
-    statusBarStyle: "#ffffff"
-};
-export const DarkTheme = {
-    defaultTextColor: "#ffffff",
-    defaultBtnColor: "#ffffff",
-    Background: "#24262b",
-    onBackground: '#363841',
-    primary: "#FF856A",
-    purple: "#4e1789",
-    lightPurple: "#871af6",
-    darkPurple: "#382649",
-    purpleShade: "#3c225d",
-    textGrey: "#8a7e9a",
-    textColor: "#B46BFF",
-    brownGray: "#5d536a",
-    black: "#000000",
-    white: "#ffffff",
-    blue: "#0037c1",
-    gray: "#767577",
-    star: "#FFD700",
-    golden: "#FFD700",
-    trueGreen: "#1eaf08",
-    halfWhite: "#eeeeee",
-    charcoalGrey: "#4a4b4d",
-    veryLightpink: "#ffeef2",
-    transparent: "transparent",
-    pink: "#d323a0",
-    red: "#FF0000",
-    cyan: '#21D4B4',
-    lightGray: '#C0C0C0',
-    statusBarColor: 'light-content',
-    statusBarStyle: "#000000"
-};
 export const getTheme = (theme) => {
     return theme === 'Light' ? LightTheme : DarkTheme;
 };
@@ -133,6 +68,8 @@ export const FONTFAMILY = {
 export const IMAGES = {
     icon: require("../assets/images/icon.png"),
     logo: require("../assets/images/logo.png"),
+    logoWithBlackFont: require("../assets/images/logoWithBlackFont.png"),
+    pattern: require("../assets/images/pattern.png"),
     logoBg: require("../assets/images/logoBg.png"),
     avatar: require("../assets/images/avatar.png"),
     user: require("../assets/images/user.png"),
@@ -140,7 +77,11 @@ export const IMAGES = {
     CardBg: require("../assets/images/cardBg.png"),
     lockBg: require("../assets/images/lockBg.png"),
     lock: require("../assets/images/lock.png"),
-    profileBg: require("../assets/images/profileBg.png")
+    profileBg: require("../assets/images/profileBg.png"),
+    starIcon: require("../assets/images/starIcon.png"),
+    userIcon: require("../assets/images/userIcon.png"),
+    bookIcon: require("../assets/images/bookIcon.png"),
+    libraybgCard: require("../assets/images/libraybgCard.png"),
 
 };
 
@@ -154,6 +95,13 @@ export const SCREENS = {
     TermsAndConditions: "TermsAndConditions",
     Profile: "Profile",
     EditProfile: "EditProfile",
+    Drawer: "Drawer",
+    library: "library",
+    SavedBooks: "SavedBooks",
+    MyInvoices: 'MyInvoices',
+    Aboutus: 'Aboutus',
+    BookDetail: "BookDetail"
+
 
 
 };
@@ -256,7 +204,7 @@ export const FONTS = {
 export const STYLES = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: SIZES.twenty,
+        paddingHorizontal: SIZES.fifteen,
         paddingTop: SIZES.twenty * 1.5,
         // backgroundColor: COLORS.white
         // marginTop: 20
