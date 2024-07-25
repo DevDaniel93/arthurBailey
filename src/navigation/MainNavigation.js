@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { COLORS, SCREENS } from "../constants";
-import Home from "../screens/Home";
+import Home from "../screens/home/Home";
 import LoginAndSignUp from "../screens/auth/LoginAndSignUp";
 import ResetPassword from "../screens/auth/ResetPassword";
 import ContactUs from "../screens/contactUs/ContactUs";

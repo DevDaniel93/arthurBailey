@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import BookCard from '../../components/BookCard'
 
 export default function Home() {
     return (
-        <View>
-            <Text>Home</Text>
+        <View style={{ justifyContent: 'space-evenly', alignItems: "center", flex: 1 , flexDirection: "row"}}>
+            <BookCard />
         </View>
     )
 }

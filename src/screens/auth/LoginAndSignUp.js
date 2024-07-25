@@ -7,7 +7,7 @@ import { IconType } from '../../components'
 
 const LoginAndSignUp = (props) => {
 
-    const [tabs, setTabs] = useState(0)
+    const [tabs, setTabs] = useState(1)
     const [userNameSignUp, setUserNameSignUp] = useState('')
     const [emailSignUp, setEmailSignUp] = useState('')
     const [passwordSignUp, setPasswordSignUp] = useState('')
@@ -119,7 +119,7 @@ const LoginAndSignUp = (props) => {
                         </TouchableOpacity>
                         <CustomButton
                             label={"Log In"}
-                            onPress={() => navigation.navigate(SCREENS.ContactUs)}
+                            onPress={() => navigation.navigate(SCREENS.Home)}
                         />
                     </>
                 }
