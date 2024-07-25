@@ -46,6 +46,10 @@ export default function ContactUs(props) {
             <HeaderWithArrow
                 iconName={"list"}
                 label={'Contact Us'}
+                rightIconName={'shoppingcart'}
+                rightIconType={IconType.AntDesign}
+                rightIconSize={SIZES.twentyFive}
+                rightIconContainerStyle={{ transform: [{ rotateY: '180deg' }] }}
             />
             <EditText
                 value={name}
@@ -74,9 +78,9 @@ export default function ContactUs(props) {
                 value={message}
                 onChangeText={setMessage}
                 styleTxtArea={styles.textArea}
-                inputArea={styles.multiInput}
+                inputArea={[styles.multiInput, styles.inputField]}
                 multiline={true}
-                style={[styles.multiInputTxt, styles.inputField]}
+                style={styles.multiInputTxt}
                 placeholder={'Enter Your Message'}
             />
             <CustomButton

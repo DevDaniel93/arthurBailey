@@ -11,26 +11,38 @@ export default function HeaderWithArrow(props) {
     // const theme = useSelector(state => state.Theme.theme)
     // const currentTheme = getTheme(theme)
     return (
-        <View style={styles.row}>
+        <View style={[styles.row, props?.containerStyle]}>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.goBack()
+                    props.iconName ? {} //onpress of some icon other than back
+                        : navigation.goBack()
                 }}
-                style={[styles.IconContainer, {
-                    //  backgroundColor: currentTheme.white,
-                }]}>
+                style={styles.IconContainer}>
                 <Icon
-                    name={props.iconName ? props.iconName : "chevron-back"}
-                    size={props.iconSize ? props.iconSize : SIZES.twentyFive}
-                    type={props.iconType ? props.iconType : IconType.Ionicons}
+                    name={props.iconName ? props?.iconName : "chevron-back"}
+                    size={props.iconSize ? props?.iconSize : SIZES.twentyFive}
+                    type={props.iconType ? props?.iconType : IconType.Ionicons}
                     color={COLORS.white}
                 />
             </TouchableOpacity>
-            <Text style={[styles.text, {
-                //  color: currentTheme.defaultTextColor,
-            }]}>
-                {props.label}
-            </Text>
+            {props.label &&
+                <Text style={[styles.text, {
+                    //  color: currentTheme.defaultTextColor,
+                }]}>
+                    {props.label}
+                </Text>}
+            {props.rightIconName &&
+                <TouchableOpacity
+                    onPress={() => { }}
+                    style={[styles.IconContainer, { right: 0, position: "absolute" }, props?.rightIconContainerStyle]}>
+                    <Icon
+                        name={props?.rightIconName}
+                        size={props?.rightIconSize}
+                        type={props?.rightIconType}
+                        color={COLORS.white}
+                    />
+                </TouchableOpacity>
+            }
         </View>
     )
 }
@@ -39,7 +51,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
         alignItems: "center",
-        // marginTop: SIZES.twenty,
+        marginTop: SIZES.twenty,
         marginHorizontal: SIZES.five,
     },
     IconContainer: {
@@ -50,7 +62,7 @@ const styles = StyleSheet.create({
     text: {
         color: COLORS.black,
         fontSize: SIZES.twenty + 2,
-        marginLeft: SIZES.fiftyWidth + SIZES.twenty,
+        marginLeft: SIZES.fiftyWidth + SIZES.twenty * 2,
         fontWeight: "700",
 
     }

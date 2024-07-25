@@ -83,7 +83,7 @@ const LoginAndSignUp = (props) => {
                             type={IconType.MaterialIcons}
                             color={COLORS.primary}
                         />
-                        <CustomButton label={"Sign Up"} />
+                        <CustomButton label={"Sign Up"} onPress={() => navigation.navigate(SCREENS.Profile)} />
                     </>
                     :
                     <>

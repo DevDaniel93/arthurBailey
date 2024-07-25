@@ -28,7 +28,7 @@ export const COLORS = {
     veryLightpink: "#ffeef2",
     transparent: "transparent",
     pink: "#d323a0",
-    red: "#FF0000",
+    red: "#CA0000",
     cyan: '#21D4B4',
     lightGray: '#C0C0C0',
     backgroundGray: "#EFEFEF",
@@ -139,7 +139,8 @@ export const IMAGES = {
     ProductImage: require("../assets/images/ProductImage.png"),
     CardBg: require("../assets/images/cardBg.png"),
     lockBg: require("../assets/images/lockBg.png"),
-    lock: require("../assets/images/lock.png")
+    lock: require("../assets/images/lock.png"),
+    profileBg: require("../assets/images/profileBg.png")
 
 };
 
@@ -150,6 +151,9 @@ export const SCREENS = {
     LoginAndSignUp: "LoginAndSignUp",
     ResetPassword: "ResetPassword",
     ContactUs: "ContactUs",
+    TermsAndConditions: "TermsAndConditions",
+    Profile: "Profile",
+    EditProfile: "EditProfile",
 
 
 };

@@ -86,7 +86,7 @@ const App = () => {
 
       <StatusBar
         backgroundColor={COLORS.transparent}
-        // translucent={Platform.OS === 'android'}
+        translucent
         barStyle={"dark-content"}
       />
       <AnimatedSplash

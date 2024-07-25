@@ -1,0 +1,36 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import CustomButton from '../../components/CustomButton'
+import { COLORS, SIZES, width } from '../../constants'
+
+const TermsAndConditions = (props) => {
+    const { navigation } = props
+    return (
+        <View style={styles.container}>
+            <Text>Mobile App Terms and Conditions</Text>
+            <CustomButton
+                label={"Agree & Continue"}
+                onPress={() => navigation.goBack()}
+                btnStyle={styles.btn}
+            />
+        </View>
+    )
+}
+
+export default TermsAndConditions
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.lightBackground
+    },
+    btn: {
+        width: width * 0.8,
+        alignSelf: "center",
+        position: "absolute",
+        top: SIZES.fifty * 11.5,
+        borderRadius: SIZES.five,
+        borderWidth: 1,
+        borderColor: COLORS.primary
+    }
+})
