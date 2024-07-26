@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import YoutubePlayer from "react-native-youtube-iframe"
 import { Icon, IconType } from '../../components'
 import CustomButton from '../../components/CustomButton'
 import CustomModal from '../../components/CustomModal'
@@ -31,6 +32,12 @@ export default function BookDetail(props) {
         }
     }
 
+    const onStateChange = useCallback((state) => {
+        if (state === "ended") {
+            setPlaying(false);
+            Alert.alert("video has finished playing!");
+        }
+    }, []);
 
     const Option = ({ image, value, label }) => {
         return (
