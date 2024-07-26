@@ -1,26 +1,24 @@
-import React, { useRef, useState } from 'react'
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import YoutubePlayer from "react-native-youtube-iframe"
 import { Icon, IconType } from '../../components'
 import CustomButton from '../../components/CustomButton'
 import CustomModal from '../../components/CustomModal'
 import HeaderWithArrow from '../../components/HeaderWithArrow'
 import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
-import Video from 'react-native-video'
 
 export default function BookDetail(props) {
     const { navigation, route } = props
     const [isVisible, setIsVisible] = useState(false)
-    const videoRef = useRef(null);
-    const background = { uri: 'https://www.dailymotion.com/video/x92n340' };
 
-    const onBuffer = () => {
+    const [playing, setPlaying] = useState(false);
 
-    }
-    const onError = () => {
-
-    }
-
-
+    const onStateChange = useCallback((state) => {
+        if (state === "ended") {
+            setPlaying(false);
+            Alert.alert("video has finished playing!");
+        }
+    }, []);
 
     const Option = ({ image, value, label }) => {
         return (
@@ -121,20 +119,21 @@ export default function BookDetail(props) {
 
             </View>
             <CustomModal isvisible={isVisible} modalStyle={{ background: "red" }}>
-                <View style={{ height: height / 3, backgroundColor: "pink" }}>
-
-                    <Video
-                        // Can be a URL or a local file.
-                        source={background}
-                        // Store reference  
-                        ref={videoRef}
-                        // Callback when remote video is buffering                                      
-                        onBuffer={onBuffer}
-                        // Callback when video cannot be loaded              
-                        onError={onError}
-                        style={styles.backgroundVideo}
+                <TouchableOpacity
+                    onPress={() => setIsVisible(false)}
+                >
+                    <Icon
+                        name={"cross"}
+                        type={IconType.Entypo}
+                        style={{ position: "absolute", bottom: -2, left: -22}}
                     />
-                </View>
+                </TouchableOpacity>
+                <YoutubePlayer
+                    height={180}
+                    play={playing}
+                    videoId={"iee2TATGMyI"}
+                    onChangeState={onStateChange}
+                />
             </CustomModal>
         </ScrollView>
     )
