@@ -21,7 +21,7 @@ export const COLORS = {
     blue: "#0037c1",
     gray: "#767577",
     star: "#FFD700",
-    golden: "#FFD700",
+    golden: "#FF8A00",
     trueGreen: "#1eaf08",
     halfWhite: "#eeeeee",
     charcoalGrey: "#4a4b4d",
@@ -60,7 +60,8 @@ export const FONTFAMILY = {
     Octicons: "Octicons",
     SimpleLineIcons: "SimpleLineIcons",
     Fontisto: "Fontisto",
-    Poppins: "Poppins"
+    Poppins: "Poppins",
+    BebasNeue: "BebasNeue"
 
 };
 
@@ -100,7 +101,10 @@ export const SCREENS = {
     SavedBooks: "SavedBooks",
     MyInvoices: 'MyInvoices',
     Aboutus: 'Aboutus',
-    BookDetail: "BookDetail"
+    BookDetail: "BookDetail",
+    CheckOut: "CheckOut",
+    MyCart: "MyCart",
+    AudioPlayer: "AudioPlayer"
 
 
 
@@ -206,7 +210,7 @@ export const STYLES = StyleSheet.create({
         flex: 1,
         paddingHorizontal: SIZES.fifteen,
         paddingTop: SIZES.twenty * 1.5,
-        // backgroundColor: COLORS.white
+        backgroundColor: COLORS.white
         // marginTop: 20
 
     },

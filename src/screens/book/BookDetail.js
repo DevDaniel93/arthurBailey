@@ -5,21 +5,31 @@ import CustomButton from '../../components/CustomButton'
 import CustomModal from '../../components/CustomModal'
 import HeaderWithArrow from '../../components/HeaderWithArrow'
 import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
-import Video from 'react-native-video'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addCart } from '../../redux/slices/Cart'
+import { SuccessAlert } from '../../utils/utils'
+// import VideoPlayer from 'react-native-video-player';
 export default function BookDetail(props) {
     const { navigation, route } = props
+    const { data } = route?.params
+
+    const dispatch = useDispatch()
     const [isVisible, setIsVisible] = useState(false)
     const videoRef = useRef(null);
     const background = { uri: 'https://www.dailymotion.com/video/x92n340' };
 
-    const onBuffer = () => {
 
+    const addToCart = async () => {
+        try {
+
+            dispatch(addCart(data))
+            SuccessAlert("add to cart successfully")
+            navigation.goBack()
+
+        } catch (error) {
+            console.log("error", error)
+        }
     }
-    const onError = () => {
-
-    }
-
 
 
     const Option = ({ image, value, label }) => {
@@ -40,20 +50,20 @@ export default function BookDetail(props) {
         <ScrollView style={{ flex: 1 }}>
             <ImageBackground
                 blurRadius={8}
-                source={{ uri: "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg" }}
+                source={{ uri: data?.image }}
                 style={styles.imageCover}
             >
                 <HeaderWithArrow IconStyle={{ backgroundColor: COLORS.white, opacity: 0.6 }} iconColor={COLORS.black} />
                 <View style={{ flexDirection: "row", marginTop: SIZES.twenty, }}>
                     <Image
                         style={styles.book}
-                        source={{ uri: "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg" }}
+                        source={{ uri: data?.image }}
                     />
                     <View style={{ flex: 1 }}>
                         <View style={{ flex: 1, width: "100%", justifyContent: "center", alignItems: "center" }}>
-                            <Option image={IMAGES.starIcon} value={"4.7"} label={"Rating"} />
-                            <Option image={IMAGES.bookIcon} value={"132"} label={"Pages"} />
-                            <Option image={IMAGES.userIcon} value={"320"} label={"Readers"} />
+                            <Option image={IMAGES.starIcon} value={data?.rating} label={"Rating"} />
+                            <Option image={IMAGES.bookIcon} value={data?.pages} label={"Pages"} />
+                            <Option image={IMAGES.userIcon} value={data?.readers} label={"Readers"} />
                         </View>
                         <View style={styles.heartIcon}>
                             <TouchableOpacity
@@ -72,10 +82,10 @@ export default function BookDetail(props) {
             </ImageBackground>
             <View style={{ flex: 1, padding: SIZES.fifteen }}>
                 <Text style={styles.heading}>
-                    Genesis Commentary: Part 1
+                    {data?.title}
                 </Text>
                 <Text style={styles.Subheading}>
-                    By Arthur Bailey {" "}
+                    By {data?.arthur} {" "}
                     <Text
                         onPress={() => navigation.navigate(SCREENS.Aboutus)} style={{
                             textDecorationLine: "underline",
@@ -89,10 +99,13 @@ export default function BookDetail(props) {
                     Description
                 </Text>
                 <Text style={styles.content}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                    {data?.description}
                 </Text>
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                     <CustomButton
+                        onPress={() => {
+                            addToCart()
+                        }}
                         label={"Add to Cart"}
                         btnStyle={{ width: width * .35 }} />
                     <CustomButton
@@ -101,15 +114,19 @@ export default function BookDetail(props) {
                         iconLeft={{ name: "caretright", type: IconType.AntDesign, color: COLORS.white, size: SIZES.twenty, style: styles.trailerIcon }}
                         onPress={() => setIsVisible(true)}
                     />
-                    <TouchableOpacity style={{
-                        width: SIZES.fifty * .7,
-                        height: SIZES.fifty * .7,
-                        borderWidth: 2,
-                        borderColor: COLORS.primary,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: SIZES.fifty
-                    }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate(SCREENS.AudioPlayer)
+                        }}
+                        style={{
+                            width: SIZES.fifty * .7,
+                            height: SIZES.fifty * .7,
+                            borderWidth: 2,
+                            borderColor: COLORS.primary,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: SIZES.fifty
+                        }}>
                         <Icon
                             name={"headphones"}
                             type={IconType.Feather}
@@ -120,20 +137,32 @@ export default function BookDetail(props) {
                 </View>
 
             </View>
-            <CustomModal isvisible={isVisible} modalStyle={{ background: "red" }}>
+            <CustomModal isvisible={isVisible}
+                modalStyle={{
+                    padding: 0,
+                }}
+            >
                 <View style={{ height: height / 3, backgroundColor: "pink" }}>
+                    <TouchableOpacity
+                        onPress={() => setIsVisible(false)}
+                        style={{
+                            position: "absolute",
+                            left: SIZES.ten,
+                            top: SIZES.ten
+                        }}>
+                        <Icon
+                            name={"cross"}
+                            type={IconType.Entypo}
+                            color={COLORS.white}
 
-                    <Video
-                        // Can be a URL or a local file.
-                        source={background}
-                        // Store reference  
-                        ref={videoRef}
-                        // Callback when remote video is buffering                                      
-                        onBuffer={onBuffer}
-                        // Callback when video cannot be loaded              
-                        onError={onError}
-                        style={styles.backgroundVideo}
-                    />
+                        />
+                    </TouchableOpacity>
+                    {/* <VideoPlayer
+                        video={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
+                        videoWidth={1600}
+                        videoHeight={900}
+                        thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                    /> */}
                 </View>
             </CustomModal>
         </ScrollView>

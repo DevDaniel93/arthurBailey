@@ -56,6 +56,7 @@ import { AnimatedSplash, Icon, IconType } from './src/components';
 import { COLORS, FONTS, IMAGES, SIZES } from './src/constants';
 import MainNavigation from './src/navigation/MainNavigation';
 import { store } from './src/redux/store';
+import Toast from 'react-native-toast-message';
 
 
 const App = () => {
@@ -100,6 +101,7 @@ const App = () => {
 
         {networkState ? (
           <Provider store={store}>
+            <Toast />
             <MainNavigation />
           </Provider>
         ) : (

@@ -5,13 +5,12 @@ import { COLORS, SIZES } from '../constants';
 import { useSelector } from 'react-redux';
 import { getTheme } from '../constants/theme';
 import { label } from '../constants/lables';
-import { useTranslation } from 'react-i18next';
+
 
 export default function PhoneTextInput(props) {
-    const { t } = useTranslation();
+
     const { phone, setPhone, setCountryCode, setFlag } = props;
-    const theme = useSelector(state => state.Theme.theme)
-    const currentTheme = getTheme(theme)
+
     const phoneInput = useRef(null);
     const [borderColor, setBorderColor] = useState(COLORS.charcoalGrey);
 
@@ -28,7 +27,7 @@ export default function PhoneTextInput(props) {
 
     return (
         <View>
-            <Text style={styles.textLabel}> {t('PhoneNumber')} <Text style={{color: currentTheme.red}}> *</Text></Text>
+            <Text style={styles.textLabel}> Phone Number * <Text style={{ color: COLORS.red }}> *</Text></Text>
             <PhoneInput
                 layout="first"
                 defaultCode="US"
@@ -43,7 +42,7 @@ export default function PhoneTextInput(props) {
             />
 
             {phone.length && !phoneInput.current?.isValidNumber(phone) ? (
-                <Text style={styles.textStyle}>{t('InvalidPhoneNumber')}</Text>
+                <Text style={styles.textStyle}>Invalid Phone Number</Text>
             ) : null}
         </View>
     );
@@ -54,16 +53,17 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     countryPickerButtonStyle: {
+
         backgroundColor: COLORS.transparent,
     },
     textContainerStyle: {
-        backgroundColor: COLORS.transparent,
+        // backgroundColor: COLORS.transparent,
     },
     containerStyle: {
         height: SIZES.twentyFive * 2.3,
         width: '100%',
         borderWidth: 1,
-        borderRadius: SIZES.ten,
+        borderRadius: SIZES.five,
         marginTop: SIZES.fifteen * 1.3,
     },
     textStyle: {
@@ -75,9 +75,11 @@ const styles = StyleSheet.create({
     textLabel: {
         fontFamily: "Poppins",
         fontSize: SIZES.fifteen,
-        fontWeight: "500",
-        color: COLORS.defaultTextColor,
+
+        color: COLORS.white,
         marginTop: SIZES.five,
-        top: SIZES.ten
+        top: SIZES.ten,
+        color: COLORS.black,
+        fontWeight: Platform.OS === "ios" ? "600" : "bold",
     },
 });

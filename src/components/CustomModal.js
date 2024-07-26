@@ -8,9 +8,9 @@ export default function CustomModal(props) {
     return (
         <ReactNativeModal
             isVisible={isvisible}
-            style={props.modalStyle}
+
         >
-            <View style={[styles.innerContainer, { }]}>
+            <View style={[styles.innerContainer, props.modalStyle]}>
                 {props.children}
             </View>
         </ReactNativeModal>
@@ -19,7 +19,6 @@ export default function CustomModal(props) {
 
 const styles = StyleSheet.create({
     innerContainer: {
-        backgroundColor: COLORS.white,
         padding: SIZES.twenty,
         borderRadius: SIZES.ten,
         borderColor: COLORS.primary,

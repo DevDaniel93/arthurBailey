@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Icon, IconType } from '../components';
 import { COLORS } from '../constants';
 import { FONTS, height, SIZES, width } from '../constants/theme';
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: SIZES.ten,
         borderRadius: Math.sqrt(width + height),
+
     },
     textInputArea: {
         flex: 1,
@@ -76,17 +77,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: COLORS.backgroundGray,
         borderRadius: SIZES.five,
-        paddingHorizontal: SIZES.fifteen
+        paddingHorizontal: SIZES.fifteen,
+        borderWidth: 1
     },
     textInput: {
         flex: 1,
     },
     textLabel: {
         fontFamily: "Poppins",
-        fontSize: SIZES.fifteen,
+        fontSize: SIZES.fifteen + 1,
         fontWeight: "500",
         marginBottom: SIZES.ten,
-        color: COLORS.defaultTextColor
+        color: COLORS.black,
+        fontWeight: Platform.OS === "ios" ? "600" : "bold",
     },
     required: {
         color: COLORS.red,

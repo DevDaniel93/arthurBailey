@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { COLORS, SIZES } from '../constants'
+import { COLORS, FONTFAMILY, SIZES } from '../constants'
 import Icon, { IconType } from './Icons'
 import { useNavigation } from '@react-navigation/native'
 // import { useSelector } from 'react-redux'
@@ -22,7 +22,7 @@ export default function HeaderWithArrow(props) {
                     name={props.iconName ? props?.iconName : "chevron-back"}
                     size={props.iconSize ? props?.iconSize : SIZES.twentyFive}
                     type={props.iconType ? props?.iconType : IconType.Ionicons}
-                    color={props.iconColor ? props.iconColor: COLORS.white}
+                    color={props.iconColor ? props.iconColor : COLORS.white}
                 />
             </TouchableOpacity>
             {props.label &&
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.twenty + 2,
         marginLeft: SIZES.fiftyWidth + SIZES.twenty * 2,
         fontWeight: "700",
+        fontFamily: FONTFAMILY.Poppins
 
     }
 })

@@ -4,6 +4,7 @@ import BookCard from '../../components/BookCard'
 import { COLORS, FONTFAMILY, SIZES, STYLES } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import CustomHeader from '../../components/CustomHeader'
+import data from './data'
 
 export default function Home() {
     return (
@@ -28,7 +29,7 @@ export default function Home() {
 
             <FlatList
                 style={{ marginBottom: SIZES.fifty }}
-                data={[1, 2, 3, 4, 5, 6, 7, 8]}
+                data={data}
                 keyExtractor={item => item.toString()}
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between', }}

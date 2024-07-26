@@ -11,6 +11,9 @@ import Profile from "../screens/profile/Profile";
 import EditProfile from "../screens/profile/EditProfile";
 import DrawerNavigator from "./drawer/DrawerNav";
 import BookDetail from "../screens/book/BookDetail";
+import CheckOut from "../screens/checkOut/CheckOut";
+import MyCart from "../screens/checkOut/MyCart";
+import AudioPlay from "../screens/playList/AudioPlay";
 
 
 
@@ -46,6 +49,9 @@ export default function MainNavigation() {
                 <Stack.Screen name={SCREENS.Profile} component={Profile} />
                 <Stack.Screen name={SCREENS.EditProfile} component={EditProfile} />
                 <Stack.Screen name={SCREENS.BookDetail} component={BookDetail} />
+                <Stack.Screen name={SCREENS.CheckOut} component={CheckOut} />
+                <Stack.Screen name={SCREENS.MyCart} component={MyCart} />
+                <Stack.Screen name={SCREENS.AudioPlayer} component={AudioPlay} />
 
             </Stack.Navigator>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { COLORS, SIZES, height, width } from '../constants';
 import { useSelector } from 'react-redux';
@@ -7,35 +7,38 @@ import { getTheme } from '../constants/theme';
 
 
 const CustomDropDownPicker = (props) => {
-    const theme = useSelector(state => state.Theme.theme)
-    const currentTheme = getTheme(theme)
+
     const [focusColor, setFocusColor] = useState(COLORS.charcoalGrey);
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(props?.value ? props?.value : null)
     const [items, setItems] = useState(props?.list ? props?.list : [])
 
     return (
-        <View style={[styles.textInputView, props.styleTxtArea, { marginTop: SIZES.ten }]}>
+        <View style={[styles(props).textInputView, props.styleTxtArea, { marginTop: SIZES.ten }]}>
             {props?.label
                 &&
-                <Text style={[styles.textLabel, { color: focusColor }]}>
+                <Text style={[styles(props).textLabel, { color: focusColor }]}>
                     {props.label}
                     {props?.required &&
-                        <Text style={{color: currentTheme.red}}> *</Text>}
+                        <Text style={{ color: COLORS.red }}> *</Text>}
                 </Text>
             }
             <DropDownPicker
                 onOpen={() => {
-                    setFocusColor(currentTheme.primary)
+                    setFocusColor(COLORS.primary)
                 }}
                 onClose={() => {
-                    setFocusColor(currentTheme.defaultTextColor)
+                    setFocusColor(COLORS.charcoalGrey)
                 }}
-                containerStyle={styles(props).dropDown}
+                style={{
+                    height: SIZES.twentyFive * 2.3,
+                    borderColor: focusColor
+                }}
+                containerStyle={[styles(props).dropDown, {}]}
                 placeholder={props?.placeholder}
                 open={open}
                 value={props?.value}
-                items={ props?.list}
+                items={props?.list}
                 setOpen={setOpen}
                 setValue={props?.onChangeValue}
                 setItems={setItems}
@@ -53,20 +56,19 @@ const styles = (props) => StyleSheet.create({
         width: props?.width ? props?.width : "70%",
         paddingTop: SIZES.ten,
         zIndex: props.zIndex ? props.zIndex : 0,
-        height: SIZES.twentyFive * 2.3,
+
     },
     textInputView: {
 
         // width: '100%',
         justifyContent: 'center',
-
-        borderRadius: Math.sqrt(width + height),
+        borderRadius: SIZES.five
     },
     textLabel: {
         fontFamily: "Poppins",
-        fontSize: SIZES.fifteen,
+        fontSize: SIZES.fifteen + 1,
         fontWeight: "500",
-        marginBottom: SIZES.ten,
-        color: COLORS.defaultTextColor
+        color: COLORS.black,
+        fontWeight: Platform.OS === "ios" ? "600" : "bold",
     },
 })

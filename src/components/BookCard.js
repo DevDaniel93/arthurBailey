@@ -8,6 +8,7 @@ import Icon, { IconType } from './Icons'
 import CustomButton from './CustomButton'
 
 const BookCard = ({ item }) => {
+
     const navigation = useNavigation()
     return (
         <View style={styles.container}>
@@ -16,14 +17,14 @@ const BookCard = ({ item }) => {
                 style={styles.InnerConatiner}>
                 <Image
                     style={styles.imageCover}
-                    source={{ uri: "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg" }}
+                    source={{ uri: item?.image }}
                 />
                 <View
                 >
-                    <Text style={styles.txt}>How To Overcome The Devil</Text>
+                    <Text numberOfLines={2} style={styles.txt}>{item?.title}</Text>
                     <CustomButton
                         onPress={() => {
-                            navigation.navigate(SCREENS.BookDetail)
+                            navigation.navigate(SCREENS.BookDetail, { data: item })
                         }}
 
                         label={"Details"} btnStyle={styles.btn} txtstyle={styles.btnTxt} />

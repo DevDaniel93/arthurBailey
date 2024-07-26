@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { COLORS, FONTFAMILY, IMAGES, SIZES } from '../constants'
+import { COLORS, FONTFAMILY, IMAGES, SCREENS, SIZES } from '../constants'
 import { useNavigation } from '@react-navigation/native'
 import Icon, { IconType } from './Icons'
 
@@ -30,7 +30,7 @@ export default function CustomHeader(props) {
 
             <TouchableOpacity
                 onPress={() => {
-                    // navigation.navigate(user !== null ? SCREENS.profile : SCREENS.Login)
+                    navigation.navigate(SCREENS.MyCart)
                 }}
                 style={styles.icon}>
                 <Icon
