@@ -17,12 +17,12 @@ export default function HeaderWithArrow(props) {
                     props.iconName ? {} //onpress of some icon other than back
                         : navigation.goBack()
                 }}
-                style={styles.IconContainer}>
+                style={[styles.IconContainer, props.IconStyle]}>
                 <Icon
                     name={props.iconName ? props?.iconName : "chevron-back"}
                     size={props.iconSize ? props?.iconSize : SIZES.twentyFive}
                     type={props.iconType ? props?.iconType : IconType.Ionicons}
-                    color={COLORS.white}
+                    color={props.iconColor ? props.iconColor: COLORS.white}
                 />
             </TouchableOpacity>
             {props.label &&

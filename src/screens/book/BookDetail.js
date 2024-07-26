@@ -1,11 +1,27 @@
+import React, { useRef, useState } from 'react'
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
 import { Icon, IconType } from '../../components'
 import CustomButton from '../../components/CustomButton'
+import CustomModal from '../../components/CustomModal'
+import HeaderWithArrow from '../../components/HeaderWithArrow'
+import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
+import Video from 'react-native-video'
 
 export default function BookDetail(props) {
     const { navigation, route } = props
+    const [isVisible, setIsVisible] = useState(false)
+    const videoRef = useRef(null);
+    const background = { uri: 'https://www.dailymotion.com/video/x92n340' };
+
+    const onBuffer = () => {
+
+    }
+    const onError = () => {
+
+    }
+
+
+
     const Option = ({ image, value, label }) => {
         return (
             <View style={{ flexDirection: "row", alignItems: "flex-end", marginTop: SIZES.ten }}>
@@ -27,16 +43,7 @@ export default function BookDetail(props) {
                 source={{ uri: "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg" }}
                 style={styles.imageCover}
             >
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                    style={styles.backIcon}>
-                    <Icon
-                        name={"chevron-back"}
-                        type={IconType.Ionicons}
-                        color={COLORS.black}
-                        size={SIZES.twenty}
-                    />
-                </TouchableOpacity>
+                <HeaderWithArrow IconStyle={{ backgroundColor: COLORS.white, opacity: 0.6 }} iconColor={COLORS.black} />
                 <View style={{ flexDirection: "row", marginTop: SIZES.twenty, }}>
                     <Image
                         style={styles.book}
@@ -69,11 +76,12 @@ export default function BookDetail(props) {
                 </Text>
                 <Text style={styles.Subheading}>
                     By Arthur Bailey {" "}
-                    <Text style={{
-                        textDecorationLine: "underline",
-                        fontWeight: Platform.OS === "ios" ? "600" : "bold",
-                        color: COLORS.primary
-                    }}>
+                    <Text
+                        onPress={() => navigation.navigate(SCREENS.Aboutus)} style={{
+                            textDecorationLine: "underline",
+                            fontWeight: Platform.OS === "ios" ? "600" : "bold",
+                            color: COLORS.primary
+                        }}>
                         About Author
                     </Text>
                 </Text>
@@ -90,6 +98,8 @@ export default function BookDetail(props) {
                     <CustomButton
                         label={"Watch Trailer"}
                         btnStyle={styles.btn} txtstyle={styles.btnTxt}
+                        iconLeft={{ name: "caretright", type: IconType.AntDesign, color: COLORS.white, size: SIZES.twenty, style: styles.trailerIcon }}
+                        onPress={() => setIsVisible(true)}
                     />
                     <TouchableOpacity style={{
                         width: SIZES.fifty * .7,
@@ -110,7 +120,22 @@ export default function BookDetail(props) {
                 </View>
 
             </View>
+            <CustomModal isvisible={isVisible} modalStyle={{ background: "red" }}>
+                <View style={{ height: height / 3, backgroundColor: "pink" }}>
 
+                    <Video
+                        // Can be a URL or a local file.
+                        source={background}
+                        // Store reference  
+                        ref={videoRef}
+                        // Callback when remote video is buffering                                      
+                        onBuffer={onBuffer}
+                        // Callback when video cannot be loaded              
+                        onError={onError}
+                        style={styles.backgroundVideo}
+                    />
+                </View>
+            </CustomModal>
         </ScrollView>
     )
 }
@@ -181,7 +206,20 @@ const styles = StyleSheet.create({
 
     },
     btnTxt: {
-        color: COLORS.primary
+        color: COLORS.primary,
+        left: SIZES.twentyWidth
+    },
+    trailerIcon: {
+        backgroundColor: COLORS.black,
+        width: 30,
+        height: 30
+    },
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
     },
 
 })

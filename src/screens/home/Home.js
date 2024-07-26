@@ -28,7 +28,7 @@ export default function Home() {
 
             <FlatList
                 style={{ marginBottom: SIZES.fifty }}
-                data={[1, 2, 3, 4]}
+                data={[1, 2, 3, 4, 5, 6, 7, 8]}
                 keyExtractor={item => item.toString()}
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between', }}

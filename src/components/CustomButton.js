@@ -1,27 +1,38 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { COLORS, SIZES } from '../constants'
-import Icon from './Icons'
+import Icon, { IconType } from './Icons'
 
 
 
 export default function CustomButton(props) {
     return (
         <TouchableOpacity
-
             disabled={props.disabled}
             onPress={props.onPress}
             style={[styles.btn, { backgroundColor: props.disabled ? COLORS.gray : COLORS.primary }, props.btnStyle]}>
+            {props.iconLeft &&
+                <View
+                    style={[styles.starContainer, props.iconLeft.style, { position: "absolute", left: 12, top: 7, }]}
+                >
+                    <Icon
+                        name={props.iconLeft.name}
+                        type={props.iconLeft.type}
+                        color={props.iconLeft.color}
+                        size={props.iconLeft.size ? props.iconLeft.size : SIZES.twenty + 3}
+                    />
+                </View>
+            }
             <Text style={[styles.txt, props.txtstyle, { right: props.icon && 30 }]}>{props.label}</Text>
-            {props.icon &&
+            {props.iconRight &&
                 <View
                     style={[styles.starContainer, { position: "absolute", right: 50, top: 7, }]}
                 >
                     <Icon
-                        name={props.icon.name}
-                        type={props.icon.type}
-                        color={props.icon.color}
-                        size={SIZES.twenty + 3}
+                        name={props.iconRight.name}
+                        type={props.iconRight.type}
+                        color={props.iconRight.color}
+                        size={props.iconRight.size ? props.iconRight.size : SIZES.twenty + 3}
                     />
                 </View>}
         </TouchableOpacity>

@@ -8,6 +8,7 @@ export default function CustomModal(props) {
     return (
         <ReactNativeModal
             isVisible={isvisible}
+            style={props.modalStyle}
         >
             <View style={[styles.innerContainer, { }]}>
                 {props.children}
