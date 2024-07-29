@@ -5,6 +5,7 @@ import { Icon, IconType } from '../../components'
 import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } from '../../constants'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import UserNotes from '../../components/UserNotes'
+import CustomHeader from '../../components/CustomHeader'
 
 const Profile = (props) => {
 
@@ -27,14 +28,18 @@ const Profile = (props) => {
         <ScrollView style={styles.container}>
 
             <ImageBackground style={styles.coverImg} source={IMAGES.profileBg}>
-                <HeaderWithArrow
+                <View style={styles.header}>
+
+                    <CustomHeader />
+                </View>
+                {/* <HeaderWithArrow
                     iconName={"list"}
                     rightIconName={'shoppingcart'}
                     rightIconType={IconType.AntDesign}
                     rightIconSize={SIZES.twentyFive}
                     rightIconContainerStyle={{ transform: [{ rotateY: '180deg' }] }}
                     containerStyle={styles.header}
-                />
+                /> */}
                 <Image source={IMAGES.user} style={styles.img} resizeMode="contain" />
             </ImageBackground>
 
@@ -60,7 +65,7 @@ const Profile = (props) => {
                 <View style={{ width: width / 3 }} />
                 <Text style={{ fontSize: SIZES.twentyWidth, color: COLORS.black, width: width / 3, bottom: 2 }}>My Notes</Text>
                 <TouchableOpacity style={{}}>
-                    <Text style={{ fontSize: SIZES.fifteen + 1, color: COLORS.primary}}>Add Notes +</Text>
+                    <Text style={{ fontSize: SIZES.fifteen + 1, color: COLORS.primary }}>Add Notes +</Text>
                 </TouchableOpacity>
             </View>
 

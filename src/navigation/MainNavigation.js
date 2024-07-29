@@ -45,8 +45,6 @@ export default function MainNavigation() {
                 <Stack.Screen name={SCREENS.Drawer} component={DrawerNavigator} />
                 <Stack.Screen name={SCREENS.LoginAndSignUp} component={LoginAndSignUp} />
                 <Stack.Screen name={SCREENS.ResetPassword} component={ResetPassword} />
-                <Stack.Screen name={SCREENS.TermsAndConditions} component={TermsAndConditions} />
-                <Stack.Screen name={SCREENS.Profile} component={Profile} />
                 <Stack.Screen name={SCREENS.EditProfile} component={EditProfile} />
                 <Stack.Screen name={SCREENS.BookDetail} component={BookDetail} />
                 <Stack.Screen name={SCREENS.CheckOut} component={CheckOut} />

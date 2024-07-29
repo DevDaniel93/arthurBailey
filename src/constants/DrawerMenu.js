@@ -12,7 +12,7 @@ import { SCREENS } from "./theme";
 
 export const Menu = [
     { route: SCREENS.Home, labelKey: 'Home', type: IconType.AntDesign, icon: 'home', component: Home, },
-    { route: SCREENS.library, labelKey: 'Library', type: IconType.Ionicons, icon: 'library-outline', component: Library, },
+    { route: SCREENS.library, labelKey: 'My Books', type: IconType.Ionicons, icon: 'library-outline', component: Library, },
     { route: SCREENS.SavedBooks, labelKey: 'Saved Books', type: IconType.Feather, icon: 'bookmark', component: SavedBooks, },
     { route: SCREENS.MyInvoices, labelKey: 'My Invoices', type: IconType.FontAwesome5, icon: 'file-invoice', component: MyInvoices, },
     { route: SCREENS.Profile, labelKey: 'My Profile', type: IconType.FontAwesome, icon: 'user-circle-o', component: Profile, },
