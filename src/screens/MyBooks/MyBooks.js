@@ -1,12 +1,13 @@
 import { Image, ImageBackground, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import CustomHeader from '../../components/CustomHeader'
-import { COLORS, FONTFAMILY, height, IMAGES, SIZES, STYLES, width } from '../../constants'
+import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
 
 
-export default function Library() {
+export default function MyBooks(props) {
+    const { navigation } = props
     const StarRating = ({ rating, maxRating = 5 }) => {
         // Validate the rating
         const validRating = Math.min(Math.max(rating, 0), maxRating);
@@ -45,12 +46,18 @@ export default function Library() {
                     <Text numberOfLines={1} style={styles.Subheading}>
                         By Arthur Bailey
                     </Text>
-                    <Text numberOfLines={1} style={[styles.heading, { textDecorationLine: "underline" }]}>
-                        View Detail
-                    </Text>
-                    <View style={{ flexDirection: "row" }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate(SCREENS.ChapterList)
+                        }}
+                    >
+                        <Text numberOfLines={1} style={[styles.heading, { textDecorationLine: "underline" }]}>
+                            View Detail
+                        </Text>
+                    </TouchableOpacity>
+                    {/* <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity style={styles.addToCart}>
-                            <Text>
+                            <Text style={{ color: COLORS.black }}>
                                 Add to Cart
                             </Text>
                         </TouchableOpacity>
@@ -65,7 +72,7 @@ export default function Library() {
 
                             />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
                 </View>
                 <StarRating rating={4} />
@@ -75,7 +82,7 @@ export default function Library() {
     }
     return (
         <ScrollView style={[STYLES.container, { paddingBottom: SIZES.fifty }]}>
-            <CustomHeader label={"Library"} />
+            <CustomHeader label={"My Books"} />
             <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
                 <SearchFilter />
                 <TouchableOpacity
@@ -125,7 +132,7 @@ const styles = StyleSheet.create({
     content: {
         height: height * .13,
         padding: SIZES.five,
-        justifyContent: "space-between",
+        justifyContent: 'space-around',
 
     },
     heading: {

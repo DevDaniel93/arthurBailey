@@ -60,8 +60,24 @@ export const FONTFAMILY = {
     Octicons: "Octicons",
     SimpleLineIcons: "SimpleLineIcons",
     Fontisto: "Fontisto",
-    Poppins: "Poppins",
-    BebasNeue: "BebasNeue"
+    BebasNeue: "BebasNeue",
+    Poppins: 'Poppins',
+    JostRegular: 'Jost-Regular',
+    CenturyGothic: "Century-Gothic",
+    RakkasRegular: "Rakkas-Regular",
+    QwitcherGrypenBold: "QwitcherGrypen-Bold",
+    QwitcherGrypenRegular: "QwitcherGrypen-Regular",
+    BebasNeueRegular: "BebasNeue-Regular",
+    RalewayThin: 'Raleway-Thin',
+    RalewaySemiBold: 'Raleway-SemiBold',
+    RalewayRegular: "Raleway-Regular",
+    RalewayMedium: 'Raleway-Medium',
+    RalewayLight: "Raleway-Light",
+    RalewayHeavy: 'Raleway-Heavy',
+    RalewayExtraLight: "Raleway-ExtraLight",
+    RalewayBold: "Raleway-Bold",
+    RalewayExtraBold: 'Raleway-ExtraBold',
+    RakkasRegular: "Rakkas-Regular"
 
 };
 
@@ -83,6 +99,7 @@ export const IMAGES = {
     userIcon: require("../assets/images/userIcon.png"),
     bookIcon: require("../assets/images/bookIcon.png"),
     libraybgCard: require("../assets/images/libraybgCard.png"),
+    invoiceBG: require("../assets/images/invoiceBG.png"),
 
 };
 
@@ -104,7 +121,9 @@ export const SCREENS = {
     BookDetail: "BookDetail",
     CheckOut: "CheckOut",
     MyCart: "MyCart",
-    AudioPlayer: "AudioPlayer"
+    AudioPlayer: "AudioPlayer",
+    ChapterList: "ChapterList",
+    Chapter: "Chapter"
 
 
 

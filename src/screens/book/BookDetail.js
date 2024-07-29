@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
 import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import YoutubePlayer from "react-native-youtube-iframe"
+// import YoutubePlayer from "react-native-youtube-iframe"
 import { Icon, IconType } from '../../components'
 import CustomButton from '../../components/CustomButton'
 import CustomModal from '../../components/CustomModal'

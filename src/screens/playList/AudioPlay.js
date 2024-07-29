@@ -32,7 +32,7 @@ TrackPlayer.updateOptions({
 export default function AudioPlay() {
 
     const { position, duration } = useProgress(1000);
-    const [play, setPlay] = useState(true)
+    const [play, setPlay] = useState(false)
 
     const setUpTrackPlayer = async () => {
         try {
@@ -77,7 +77,7 @@ export default function AudioPlay() {
                         name={"backward-step"}
                         type={IconType.FontAwesome6}
                         color={COLORS.primary}
-                        size={SIZES.fifty * .7}
+                        size={SIZES.twentyFive * 1.3}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
@@ -92,16 +92,16 @@ export default function AudioPlay() {
                     onPress={async () => {
                         if (play) {
                             setPlay(!play)
-                            TrackPlayer.play();
+                            TrackPlayer.pause();
                         } else {
                             setPlay(!play)
-                            TrackPlayer.pause();
+                            TrackPlayer.play();
                         }
 
                     }}
                 >
                     <Icon
-                        name={play ? "play" : "pause"}
+                        name={!play ? "play" : "pause"}
                         type={IconType.AntDesign}
                         color={COLORS.primary}
                         size={SIZES.twentyFive * 2}
@@ -116,7 +116,6 @@ export default function AudioPlay() {
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
-
                     onPress={async () => {
                         await TrackPlayer.skipToNext();
                     }}
@@ -125,7 +124,7 @@ export default function AudioPlay() {
                         name={"forward-step"}
                         type={IconType.FontAwesome6}
                         color={COLORS.primary}
-                        size={SIZES.fifty * .7}
+                        size={SIZES.twentyFive * 1.3}
                     />
                 </TouchableOpacity>
             </View>
@@ -135,7 +134,7 @@ export default function AudioPlay() {
         <View style={styles.container}>
             <View style={styles?.headerConatiner}>
                 <HeaderWithArrow IconStyle={{ backgroundColor: COLORS.white, }} iconColor={COLORS.black} />
-                <RotatingCD imageSource={cdImage} play={true} />
+                <RotatingCD imageSource={cdImage} play={play} />
                 <View style={{ justifyContent: "flex-end", alignItems: "center", }}>
                     <Text style={styles.heading}>
                         CHAPTER 14
@@ -160,24 +159,26 @@ export default function AudioPlay() {
                     </View>
                 </View>
             </View>
-            <View style={{ width: width * .8, justifyContent: "center", alignItems: "center" }}>
-                <ProgressBar
-                    progress={normalizedProgress / 10}
-                    height={30}
-                    backgroundColor="#e0e0e0"
-                    barColor="#3b5998"
-                />
+            <View style={{ flex: 1, justifyContent: "flex-end", marginBottom: height * .15 }}>
+
+
+                <View style={{ justifyContent: "space-between", width: width * .9, flexDirection: "row", marginHorizontal: SIZES.fifteen, marginVertical: SIZES.ten }}>
+                    <Text style={styles.time}>{formatTime(position)}</Text>
+                    <Text style={styles.time}>{formatTime(duration)}</Text>
+                </View>
+                <View style={{ marginHorizontal: SIZES.fifteen, width: "100%", justifyContent: 'center' }}>
+                    <ProgressBar
+                        progress={normalizedProgress}
+                        height={SIZES.ten}
+                        backgroundColor={COLORS.lightGray}
+                        barColor={COLORS.primary}
+                    />
+                </View>
+                <PlayerButton />
             </View>
 
-            {/* <ProgressBar
-                style={{
-                    margin: 15,
-                }}
 
-                color={COLORS.primary}
-                progress={normalizedProgress / 10}
-            /> */}
-            <PlayerButton />
+
         </View>
     )
 }
@@ -211,6 +212,11 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.five,
         fontFamily: FONTFAMILY.BebasNeue,
         textTransform: 'uppercase',
-
+    },
+    time: {
+        color: COLORS.primary,
+        fontWeight: "600",
+        fontFamily: FONTFAMILY.Poppins,
+        fontSize: 12
     }
 })

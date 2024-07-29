@@ -14,6 +14,8 @@ import BookDetail from "../screens/book/BookDetail";
 import CheckOut from "../screens/checkOut/CheckOut";
 import MyCart from "../screens/checkOut/MyCart";
 import AudioPlay from "../screens/playList/AudioPlay";
+import ChapterList from "../screens/SavedBooks/ChapterList";
+import Chapters from "../screens/SavedBooks/Chapters";
 
 
 
@@ -41,10 +43,8 @@ export default function MainNavigation() {
                 initialRouteName={SCREENS.LoginAndSignUp}
             >
                 <Stack.Screen name={SCREENS.Drawer} component={DrawerNavigator} />
-
                 <Stack.Screen name={SCREENS.LoginAndSignUp} component={LoginAndSignUp} />
                 <Stack.Screen name={SCREENS.ResetPassword} component={ResetPassword} />
-                <Stack.Screen name={SCREENS.ContactUs} component={ContactUs} />
                 <Stack.Screen name={SCREENS.TermsAndConditions} component={TermsAndConditions} />
                 <Stack.Screen name={SCREENS.Profile} component={Profile} />
                 <Stack.Screen name={SCREENS.EditProfile} component={EditProfile} />
@@ -52,6 +52,8 @@ export default function MainNavigation() {
                 <Stack.Screen name={SCREENS.CheckOut} component={CheckOut} />
                 <Stack.Screen name={SCREENS.MyCart} component={MyCart} />
                 <Stack.Screen name={SCREENS.AudioPlayer} component={AudioPlay} />
+                <Stack.Screen name={SCREENS.ChapterList} component={ChapterList} />
+                <Stack.Screen name={SCREENS.Chapter} component={Chapters} />
 
             </Stack.Navigator>
 

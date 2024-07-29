@@ -4,7 +4,7 @@ import CustomDrawer from './CustomDrawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from '../../screens/home/Home';
 import { SCREENS } from '../../constants';
-import Library from '../../screens/library/Library';
+import Library from '../../screens/MyBooks/MyBooks';
 import SavedBooks from '../../screens/SavedBooks/SavedBooks';
 import MyInvoices from '../../screens/MyInvoices/MyInvoices';
 import Profile from '../../screens/profile/Profile';

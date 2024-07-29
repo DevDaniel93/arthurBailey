@@ -10,6 +10,7 @@ import { Contactus } from '../../redux/slices/contactUs'
 import { setLoading } from '../../redux/slices/utils'
 import CustomModal from '../../components/CustomModal'
 import { Icon, IconType } from '../../components'
+import CustomHeader from '../../components/CustomHeader'
 
 export default function ContactUs(props) {
 
@@ -43,14 +44,15 @@ export default function ContactUs(props) {
 
     return (
         <View style={STYLES.container}>
-            <HeaderWithArrow
+            <CustomHeader label={"Contact Us"} />
+            {/* <HeaderWithArrow
                 iconName={"list"}
                 label={'Contact Us'}
                 rightIconName={'shoppingcart'}
                 rightIconType={IconType.AntDesign}
                 rightIconSize={SIZES.twentyFive}
                 rightIconContainerStyle={{ transform: [{ rotateY: '180deg' }] }}
-            />
+            /> */}
             <EditText
                 value={name}
                 onChangeText={setName}

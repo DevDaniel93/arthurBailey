@@ -7,7 +7,9 @@ const AboutUs = (props) => {
     const { navigation } = props
     return (
         <View style={styles.container}>
-            <Text>Mobile App Terms and Conditions</Text>
+
+            <Text style={styles.heading
+            }>Mobile App Terms and Conditions</Text>
             <CustomButton
                 label={"Agree & Continue"}
                 onPress={() => navigation.goBack()}
@@ -32,5 +34,12 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.five,
         borderWidth: 1,
         borderColor: COLORS.primary
+    },
+    heading: {
+        color: COLORS.black,
+        marginTop: SIZES.twentyFive * 2,
+        marginHorizontal: SIZES.twentyFive,
+        fontSize: SIZES.twenty
+
     }
 })
