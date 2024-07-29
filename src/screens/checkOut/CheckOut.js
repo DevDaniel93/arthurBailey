@@ -1,6 +1,6 @@
-import { FlatList, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { COLORS, FONTFAMILY, height, SIZES, STYLES, width } from '../../constants'
+import { COLORS, FONTFAMILY, height, SCREENS, SIZES, STYLES, width } from '../../constants'
 import HeaderWithArrow from '../../components/HeaderWithArrow'
 import EditText from '../../components/EditText'
 import PhoneTextInput from '../../components/PhoneTextInput'
@@ -8,9 +8,12 @@ import CustomDropDownPicker from '../../components/CustomDropDownPicker'
 import countries from './countries'
 import cardValidator from 'card-validator'
 import CustomButton from '../../components/CustomButton'
-import { useSelector } from 'react-redux'
-import { selectTotalAmount } from '../../redux/slices/Cart'
-export default function CheckOut() {
+import { useDispatch, useSelector } from 'react-redux'
+import { emptyCart, selectTotalAmount } from '../../redux/slices/Cart'
+import CustomModal from '../../components/CustomModal'
+import { Icon, IconType } from '../../components'
+export default function CheckOut(props) {
+    const { navigation } = props
     const [phone, setPhone] = useState('');
     const [countryCode, setCountryCode] = useState('+1');
     const [flag, setFlag] = useState('US');
@@ -22,6 +25,8 @@ export default function CheckOut() {
     const [Error, setError] = useState('');
     const [expiryAuth, setExpiryAuth] = useState('');
     const [cvcAuth, setCvcAuth] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
+    const dispatch = useDispatch()
     const handleState = () => {
         try {
             const filter = countries.filter((item) => item.code === flag)
@@ -195,7 +200,36 @@ export default function CheckOut() {
 
             <CustomButton
                 label={"Confirm"}
+                onPress={() => {
+                    setIsVisible(!isVisible)
+                }}
             />
+            <CustomModal isvisible={isVisible}
+                modalStyle={{
+                    padding: 0,
+                }}
+            >
+
+                <View style={{ height: height / 3, backgroundColor: COLORS.white, padding: SIZES.twentyFive, justifyContent: "center", }}>
+
+
+                    <Text style={styles.ModalHeading}>
+                        Thank You
+                    </Text>
+                    <Text style={styles.Modalcontent}>
+                        For choosing us. Your order is successfully placed, you will soon receive confirmation mail from us.
+                    </Text>
+                    <CustomButton
+                        label={"Continue"}
+                        onPress={() => {
+                            dispatch(emptyCart())
+                            setIsVisible(false)
+                            navigation.navigate(SCREENS.Drawer)
+                        }}
+                    />
+
+                </View>
+            </CustomModal>
 
             <View style={{ height: height * .05 }} />
 
@@ -233,4 +267,19 @@ const styles = StyleSheet.create({
         fontFamily: FONTFAMILY.Poppins,
         fontWeight: Platform.OS === "ios" ? "600" : "bold",
     },
+    ModalHeading: {
+        fontFamily: FONTFAMILY.QwitcherGrypenBold,
+        fontSize: SIZES.fifty,
+        color: COLORS.black,
+        textAlign: "center"
+    },
+    Modalcontent: {
+        fontFamily: FONTFAMILY.JostRegular,
+        fontSize: SIZES.fifteen,
+        color: COLORS.black,
+        textAlign: "center",
+        marginVertical: SIZES.ten
+
+    },
+
 })

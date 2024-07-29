@@ -96,6 +96,7 @@ export default function EditProfile(props) {
                 setVisibility={setIsVisible}
             />
             <CustomModal
+                modalStyle={{ backgroundColor: COLORS.white }}
                 isvisible={changePasswordModal}
             >
                 <Text style={styles.heading}>
@@ -141,7 +142,7 @@ export default function EditProfile(props) {
                 />
                 <CustomButton
                     btnStyle={{ marginVertical: SIZES.fifteen }}
-                    onPress={() =>  UpdatePassword()}
+                    onPress={() => UpdatePassword()}
                     label={'Update'}
                 />
 

@@ -55,13 +55,21 @@ export default function SavedBooks() {
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ marginLeft: SIZES.ten }}
+                            style={{
+                                marginLeft: SIZES.ten,
+                                width: SIZES.twentyFive,
+                                height: SIZES.twentyFive,
+                                borderRadius: SIZES.fifty,
+                                backgroundColor: COLORS.white,
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
                         >
                             <Icon
-                                name={"bookmark-alt"}
-                                type={IconType.Fontisto}
-                                color={COLORS.white}
-                                size={SIZES.twentyFive}
+                                name={"trash"}
+                                type={IconType.Ionicons}
+                                color={COLORS.red}
+                                size={SIZES.twenty}
 
                             />
                         </TouchableOpacity>

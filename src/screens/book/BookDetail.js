@@ -1,6 +1,6 @@
-import React, { useCallback, useState, useRef } from 'react'
-import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-// import YoutubePlayer from "react-native-youtube-iframe"
+
+import React, { useState, useEffect } from 'react'
+import { Alert, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native'
 import { Icon, IconType } from '../../components'
 import CustomButton from '../../components/CustomButton'
 import CustomModal from '../../components/CustomModal'
@@ -9,35 +9,26 @@ import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../..
 import { useDispatch, useSelector } from 'react-redux'
 import { addCart } from '../../redux/slices/Cart'
 import { SuccessAlert } from '../../utils/utils'
-// import VideoPlayer from 'react-native-video-player';
+import VideoPlayer from 'react-native-video-controls'
+
+
 export default function BookDetail(props) {
     const { navigation, route } = props
     const { data } = route?.params
-
     const dispatch = useDispatch()
     const [isVisible, setIsVisible] = useState(false)
-    const videoRef = useRef(null);
-    const background = { uri: 'https://www.dailymotion.com/video/x92n340' };
+
 
 
     const addToCart = async () => {
         try {
-
             dispatch(addCart(data))
-            SuccessAlert("add to cart successfully")
+            SuccessAlert("Add to cart successfully")
             navigation.goBack()
-
         } catch (error) {
             console.log("error", error)
         }
     }
-
-    const onStateChange = useCallback((state) => {
-        if (state === "ended") {
-            setPlaying(false);
-            Alert.alert("video has finished playing!");
-        }
-    }, []);
 
     const Option = ({ image, value, label }) => {
         return (
@@ -61,7 +52,7 @@ export default function BookDetail(props) {
                 style={styles.imageCover}
             >
                 <HeaderWithArrow IconStyle={{ backgroundColor: COLORS.white, opacity: 0.6 }} iconColor={COLORS.black} />
-                <View style={{ flexDirection: "row", marginTop: SIZES.twenty, }}>
+                <View style={{ flexDirection: "row", marginTop: SIZES.twenty }}>
                     <Image
                         style={styles.book}
                         source={{ uri: data?.image }}
@@ -72,7 +63,7 @@ export default function BookDetail(props) {
                             <Option image={IMAGES.bookIcon} value={data?.pages} label={"Pages"} />
                             <Option image={IMAGES.userIcon} value={data?.readers} label={"Readers"} />
                         </View>
-                        <View style={styles.heartIcon}>
+                        <View style={[styles.heartIcon, { backgroundColor: COLORS.black + 30 }]}>
                             <TouchableOpacity
                                 style={styles.backIcon}>
                                 <Icon
@@ -80,14 +71,18 @@ export default function BookDetail(props) {
                                     color={COLORS.red}
                                     type={IconType.AntDesign}
                                     size={SIZES.twenty}
-
                                 />
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
+                <Image
+                    source={IMAGES.bookCoverBottom}
+                    style={{ width: width, height: height * .14, position: "absolute", bottom: -10, }}
+                    resizeMode="stretch"
+                />
             </ImageBackground>
-            <View style={{ flex: 1, padding: SIZES.fifteen }}>
+            <View style={{ flex: 1, padding: SIZES.fifteen, backgroundColor: COLORS.white }}>
                 <Text style={styles.heading}>
                     {data?.title}
                 </Text>
@@ -110,9 +105,7 @@ export default function BookDetail(props) {
                 </Text>
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                     <CustomButton
-                        onPress={() => {
-                            addToCart()
-                        }}
+                        onPress={() => addToCart()}
                         label={"Add to Cart"}
                         btnStyle={{ width: width * .35 }} />
                     <CustomButton
@@ -122,9 +115,7 @@ export default function BookDetail(props) {
                         onPress={() => setIsVisible(true)}
                     />
                     <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate(SCREENS.AudioPlayer)
-                        }}
+                        onPress={() => navigation.navigate(SCREENS.AudioPlayer)}
                         style={{
                             width: SIZES.fifty * .7,
                             height: SIZES.fifty * .7,
@@ -142,34 +133,32 @@ export default function BookDetail(props) {
                         />
                     </TouchableOpacity>
                 </View>
-
             </View>
             <CustomModal isvisible={isVisible}
                 modalStyle={{
                     padding: 0,
                 }}
             >
-                <View style={{ height: height / 3, backgroundColor: "pink" }}>
+                <View style={{ height: height / 3, }}>
                     <TouchableOpacity
                         onPress={() => setIsVisible(false)}
                         style={{
                             position: "absolute",
                             left: SIZES.ten,
-                            top: SIZES.ten
+                            top: SIZES.ten,
+                            zIndex: 1000
                         }}>
                         <Icon
                             name={"cross"}
                             type={IconType.Entypo}
                             color={COLORS.white}
-
                         />
                     </TouchableOpacity>
-                    {/* <VideoPlayer
-                        video={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
-                        videoWidth={1600}
-                        videoHeight={900}
-                        thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
-                    /> */}
+                    <VideoPlayer
+                        source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
+                        disableBack={true}
+                        disableFullscreen={true}
+                    />
                 </View>
             </CustomModal>
         </ScrollView>
@@ -195,6 +184,7 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         width: width * .5,
         height: height * .38,
+        zIndex: 1000,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -202,10 +192,10 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
-
         elevation: 10,
     },
     heartIcon: {
+        zIndex: 1000,
         backgroundColor: "#F1F1F1" + 90,
         position: "absolute",
         bottom: 0,
@@ -228,7 +218,8 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.ten,
         fontFamily: FONTFAMILY.Poppins,
         letterSpacing: 2
-    }, content: {
+    },
+    content: {
         color: COLORS.black,
         fontSize: SIZES.fifteen,
         lineHeight: 22,
@@ -239,7 +230,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         width: width * .35,
         borderColor: COLORS.primary
-
     },
     btnTxt: {
         color: COLORS.primary,
@@ -250,12 +240,4 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30
     },
-    backgroundVideo: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-    },
-
 })

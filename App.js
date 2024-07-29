@@ -101,8 +101,9 @@ const App = () => {
 
         {networkState ? (
           <Provider store={store}>
-            <Toast />
+
             <MainNavigation />
+            <Toast />
           </Provider>
         ) : (
 

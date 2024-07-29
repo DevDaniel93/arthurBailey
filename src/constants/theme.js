@@ -100,6 +100,7 @@ export const IMAGES = {
     bookIcon: require("../assets/images/bookIcon.png"),
     libraybgCard: require("../assets/images/libraybgCard.png"),
     invoiceBG: require("../assets/images/invoiceBG.png"),
+    bookCoverBottom: require("../assets/images/bookCoverBottom.png"),
 
 };
 

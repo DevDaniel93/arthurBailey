@@ -4,6 +4,7 @@ import CustomButton from '../../components/CustomButton'
 import { COLORS, IMAGES, SCREENS, SIZES } from '../../constants'
 import EditText from '../../components/EditText'
 import { IconType } from '../../components'
+import { SuccessAlert } from '../../utils/utils'
 
 const LoginAndSignUp = (props) => {
 
@@ -119,7 +120,9 @@ const LoginAndSignUp = (props) => {
                         </TouchableOpacity>
                         <CustomButton
                             label={"Log In"}
-                            onPress={() => navigation.navigate(SCREENS.Drawer)}
+                            onPress={() =>
+                                navigation.navigate(SCREENS.Drawer)
+                            }
                         />
                     </>
                 }
