@@ -115,7 +115,7 @@ export default function BookDetail(props) {
                         onPress={() => setIsVisible(true)}
                     />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(SCREENS.AudioPlayer)}
+                        onPress={() => navigation.navigate(SCREENS.AudioPlayer, {cdImage: data?.image, bookTitle: data?.title})}
                         style={{
                             width: SIZES.fifty * .7,
                             height: SIZES.fifty * .7,

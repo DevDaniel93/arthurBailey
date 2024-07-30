@@ -29,8 +29,9 @@ TrackPlayer.updateOptions({
         TrackPlayer.CAPABILITY_PAUSE,
     ],
 });
-export default function AudioPlay() {
+export default function AudioPlay(props) {
 
+    const {cdImage, bookTitle} = props?.route?.params
     const { position, duration } = useProgress(1000);
     const [play, setPlay] = useState(false)
 
@@ -63,7 +64,7 @@ export default function AudioPlay() {
         }
     };
     const normalizedProgress = duration ? (position / duration) * 10 : 0;
-    const cdImage = "https://images-us.bookshop.org/ingram/9781250170767.jpg?height=500&v=v2"
+    // const cdImage = image
 
     const PlayerButton = () => {
         return (
@@ -137,7 +138,7 @@ export default function AudioPlay() {
                 <RotatingCD imageSource={cdImage} play={play} />
                 <View style={{ justifyContent: "flex-end", alignItems: "center", }}>
                     <Text style={styles.heading}>
-                        CHAPTER 14
+                        {bookTitle}
                     </Text>
                     <Text style={styles.Subheading}>
                         CHAPTER 14
@@ -203,6 +204,7 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.five,
         fontFamily: FONTFAMILY.BebasNeue,
         textTransform: 'uppercase',
+        textAlign: "center"
 
     },
     Subheading: {
