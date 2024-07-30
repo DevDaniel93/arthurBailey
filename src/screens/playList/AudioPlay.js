@@ -31,7 +31,7 @@ TrackPlayer.updateOptions({
 });
 export default function AudioPlay(props) {
 
-    const {cdImage} = props?.route?.params
+    const {cdImage, bookTitle} = props?.route?.params
     const { position, duration } = useProgress(1000);
     const [play, setPlay] = useState(false)
 
@@ -138,7 +138,7 @@ export default function AudioPlay(props) {
                 <RotatingCD imageSource={cdImage} play={play} />
                 <View style={{ justifyContent: "flex-end", alignItems: "center", }}>
                     <Text style={styles.heading}>
-                        CHAPTER 14
+                        {bookTitle}
                     </Text>
                     <Text style={styles.Subheading}>
                         CHAPTER 14
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.five,
         fontFamily: FONTFAMILY.BebasNeue,
         textTransform: 'uppercase',
+        textAlign: "center"
 
     },
     Subheading: {
