@@ -29,8 +29,9 @@ TrackPlayer.updateOptions({
         TrackPlayer.CAPABILITY_PAUSE,
     ],
 });
-export default function AudioPlay() {
+export default function AudioPlay(props) {
 
+    const {cdImage} = props?.route?.params
     const { position, duration } = useProgress(1000);
     const [play, setPlay] = useState(false)
 
@@ -63,7 +64,7 @@ export default function AudioPlay() {
         }
     };
     const normalizedProgress = duration ? (position / duration) * 10 : 0;
-    const cdImage = "https://images-us.bookshop.org/ingram/9781250170767.jpg?height=500&v=v2"
+    // const cdImage = image
 
     const PlayerButton = () => {
         return (
