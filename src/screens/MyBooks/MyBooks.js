@@ -1,13 +1,20 @@
 import { Image, ImageBackground, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import CustomHeader from '../../components/CustomHeader'
 import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
-import SlidingDrawer from '../../components/SlidingDrawer'
+
+import FilterComponent from '../../components/FilterComponent'
 
 
 export default function MyBooks(props) {
+    const filterRef = useRef();
+
+    const handleOpenDrawer = () => {
+        filterRef.current?.openDrawer();
+    };
+
     const { navigation } = props
     const StarRating = ({ rating, maxRating = 5 }) => {
         // Validate the rating
@@ -83,11 +90,16 @@ export default function MyBooks(props) {
     }
     return (
         <ScrollView style={[STYLES.container, { paddingBottom: SIZES.fifty }]}>
+
+
+            <FilterComponent ref={filterRef} />
+
             <CustomHeader label={"My Books"} />
             <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
                 <SearchFilter />
-                <SlidingDrawer />
-                {/* <TouchableOpacity
+
+                <TouchableOpacity
+                    onPress={handleOpenDrawer}
                     style={styles.icon}>
                     <Icon
                         name={"filter"}
@@ -95,7 +107,7 @@ export default function MyBooks(props) {
                         color={COLORS.white}
                         size={SIZES.twenty}
                     />
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
             <LibraryCard />
             <LibraryCard />
@@ -103,7 +115,7 @@ export default function MyBooks(props) {
             <LibraryCard />
             <LibraryCard />
             <LibraryCard />
-
+            <View style={{ height: height * .05 }} />
         </ScrollView >
     )
 }

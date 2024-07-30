@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: SIZES.ten,
-        fontWeight: "500"
+        fontWeight: "500",
+        color: COLORS.gray
     },
     editBtn: {
         color: COLORS.primary,

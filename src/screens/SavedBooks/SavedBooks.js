@@ -1,12 +1,19 @@
 import { Image, ImageBackground, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import CustomHeader from '../../components/CustomHeader'
 import { COLORS, FONTFAMILY, height, IMAGES, SIZES, STYLES, width } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
+import FilterComponent from '../../components/FilterComponent'
 
 
 export default function SavedBooks() {
+    const filterRef = useRef();
+
+    const handleOpenDrawer = () => {
+        filterRef.current?.openDrawer();
+    };
+
     const StarRating = ({ rating, maxRating = 5 }) => {
         // Validate the rating
         const validRating = Math.min(Math.max(rating, 0), maxRating);
@@ -83,10 +90,12 @@ export default function SavedBooks() {
     }
     return (
         <ScrollView style={[STYLES.container,]}>
+            <FilterComponent ref={filterRef} />
             <CustomHeader label={"Saved Books"} />
             <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
                 <SearchFilter />
                 <TouchableOpacity
+                    onPress={handleOpenDrawer}
                     style={styles.icon}>
                     <Icon
                         name={"filter"}
@@ -102,7 +111,7 @@ export default function SavedBooks() {
             <LibraryCard />
             <LibraryCard />
             <LibraryCard />
-
+            <View style={{ height: height * .05 }} />
         </ScrollView >
     )
 }

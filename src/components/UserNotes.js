@@ -34,7 +34,7 @@ const UserNotes = (props) => {
                     />
                 </TouchableOpacity>
             </View>
-            <Text style={{ textAlign: "center", paddingTop: SIZES.fifteen }}>
+            <Text style={{ textAlign: "center", paddingTop: SIZES.fifteen, color: COLORS.gray }}>
                 {props?.description}
             </Text>
         </View>

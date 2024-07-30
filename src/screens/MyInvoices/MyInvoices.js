@@ -62,6 +62,7 @@ export default function MyInvoices() {
             <InvoiceCard />
             <InvoiceCard />
             <InvoiceCard />
+            <View style={{ height: height * .05 }} />
         </ScrollView>
     )
 }

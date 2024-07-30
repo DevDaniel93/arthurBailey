@@ -89,7 +89,7 @@ export default function BookDetail(props) {
                 <Text style={styles.Subheading}>
                     By {data?.arthur} {" "}
                     <Text
-                        onPress={() => navigation.navigate(SCREENS.Aboutus)} style={{
+                        style={{
                             textDecorationLine: "underline",
                             fontWeight: Platform.OS === "ios" ? "600" : "bold",
                             color: COLORS.primary
@@ -115,7 +115,7 @@ export default function BookDetail(props) {
                         onPress={() => setIsVisible(true)}
                     />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(SCREENS.AudioPlayer, {cdImage: data?.image, bookTitle: data?.title})}
+                        onPress={() => navigation.navigate(SCREENS.AudioPlayer, { cdImage: data?.image, bookTitle: data?.title })}
                         style={{
                             width: SIZES.fifty * .7,
                             height: SIZES.fifty * .7,
