@@ -4,6 +4,7 @@ import CustomHeader from '../../components/CustomHeader'
 import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
+import SlidingDrawer from '../../components/SlidingDrawer'
 
 
 export default function MyBooks(props) {
@@ -85,7 +86,8 @@ export default function MyBooks(props) {
             <CustomHeader label={"My Books"} />
             <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
                 <SearchFilter />
-                <TouchableOpacity
+                <SlidingDrawer />
+                {/* <TouchableOpacity
                     style={styles.icon}>
                     <Icon
                         name={"filter"}
@@ -93,7 +95,7 @@ export default function MyBooks(props) {
                         color={COLORS.white}
                         size={SIZES.twenty}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <LibraryCard />
             <LibraryCard />
