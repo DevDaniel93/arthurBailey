@@ -4,15 +4,13 @@ import CustomHeader from '../../components/CustomHeader'
 import { COLORS, FONTFAMILY, height, IMAGES, SIZES, STYLES, width } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
-import FilterComponent from '../../components/FilterComponent'
+
+import FilterModal from '../../components/FilterModal'
 
 
 export default function SavedBooks() {
-    const filterRef = useRef();
 
-    const handleOpenDrawer = () => {
-        filterRef.current?.openDrawer();
-    };
+
 
     const StarRating = ({ rating, maxRating = 5 }) => {
         // Validate the rating
@@ -88,31 +86,52 @@ export default function SavedBooks() {
             </View>
         )
     }
+    const onReset = () => {
+
+    }
+    const onApply = (products) => {
+
+    };
+    const onCancel = () => {
+        if (modal.current) {
+            modal.current.close();
+        }
+    };
+    const modal = React.useRef(null);
+
     return (
-        <ScrollView style={[STYLES.container,]}>
-            <FilterComponent ref={filterRef} />
-            <CustomHeader label={"Saved Books"} />
-            <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
-                <SearchFilter />
-                <TouchableOpacity
-                    onPress={handleOpenDrawer}
-                    style={styles.icon}>
-                    <Icon
-                        name={"filter"}
-                        type={IconType.AntDesign}
-                        color={COLORS.white}
-                        size={SIZES.twenty}
-                    />
-                </TouchableOpacity>
-            </View>
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <View style={{ height: height * .05 }} />
-        </ScrollView >
+        <View style={{ flex: 1 }}>
+            <ScrollView style={[STYLES.container,]}>
+
+                <CustomHeader label={"Saved Books"} />
+                <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
+                    <SearchFilter />
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (modal.current) {
+                                modal.current.open();
+                            }
+                        }}
+                        style={styles.icon}>
+                        <Icon
+                            name={"filter"}
+                            type={IconType.AntDesign}
+                            color={COLORS.white}
+                            size={SIZES.twenty}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <View style={{ height: height * .05 }} />
+
+            </ScrollView >
+            <FilterModal modalizeRef={modal} onApply={onApply} onResetAll={onReset} onCancel={onCancel} />
+        </View>
     )
 }
 

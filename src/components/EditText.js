@@ -52,6 +52,7 @@ export default function EditText(props) {
                                 name={enableSecureEntry ? 'eye-slash' : 'eye'}
                                 type={IconType.FontAwesome}
                                 style={{ fontSize: 20, marginLeft: 5, }}
+                                color={COLORS.black}
                             />
                         </TouchableOpacity>
                     ) : null}

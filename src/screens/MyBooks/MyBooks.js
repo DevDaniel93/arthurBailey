@@ -5,7 +5,8 @@ import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } fro
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
 
-import FilterComponent from '../../components/FilterComponent'
+
+import FilterModal from '../../components/FilterModal'
 
 
 export default function MyBooks(props) {
@@ -88,35 +89,54 @@ export default function MyBooks(props) {
             </View>
         )
     }
+    const onReset = () => {
+
+    }
+    const onApply = (products) => {
+
+    };
+    const onCancel = () => {
+        if (modal.current) {
+            modal.current.close();
+        }
+    };
+
+    const modal = React.useRef(null);
     return (
-        <ScrollView style={[STYLES.container, { paddingBottom: SIZES.fifty }]}>
+        <View style={{ flex: 1 }}>
 
 
-            <FilterComponent ref={filterRef} />
+            <ScrollView style={[STYLES.container, { paddingBottom: SIZES.fifty }]}>
+                <CustomHeader label={"My Books"} />
+                <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
+                    <SearchFilter />
 
-            <CustomHeader label={"My Books"} />
-            <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
-                <SearchFilter />
-
-                <TouchableOpacity
-                    onPress={handleOpenDrawer}
-                    style={styles.icon}>
-                    <Icon
-                        name={"filter"}
-                        type={IconType.AntDesign}
-                        color={COLORS.white}
-                        size={SIZES.twenty}
-                    />
-                </TouchableOpacity>
-            </View>
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <LibraryCard />
-            <View style={{ height: height * .05 }} />
-        </ScrollView >
+                    <TouchableOpacity
+                        // onPress={handleOpenDrawer}
+                        onPress={() => {
+                            if (modal.current) {
+                                modal.current.open();
+                            }
+                        }}
+                        style={styles.icon}>
+                        <Icon
+                            name={"filter"}
+                            type={IconType.AntDesign}
+                            color={COLORS.white}
+                            size={SIZES.twenty}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <LibraryCard />
+                <View style={{ height: height * .05 }} />
+            </ScrollView >
+            <FilterModal modalizeRef={modal} onApply={onApply} onResetAll={onReset} onCancel={onCancel} />
+        </View>
     )
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CustomButton from '../../components/CustomButton'
-import { COLORS, IMAGES, SCREENS, SIZES } from '../../constants'
+import { COLORS, height, IMAGES, SCREENS, SIZES } from '../../constants'
 import EditText from '../../components/EditText'
 import { IconType } from '../../components'
 import { SuccessAlert } from '../../utils/utils'
@@ -18,7 +18,8 @@ const LoginAndSignUp = (props) => {
     const { navigation } = props
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
+
             <View style={styles.headerImage}>
                 <ImageBackground
                     style={{ flex: 1, alignItems: "center", justifyContent: "center", bottom: SIZES.ten }}
@@ -127,7 +128,9 @@ const LoginAndSignUp = (props) => {
                     </>
                 }
             </View>
-        </View>
+
+
+        </ScrollView>
     )
 }
 
@@ -136,10 +139,10 @@ export default LoginAndSignUp
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: COLORS.backgroundGray
+        backgroundColor: COLORS.white
     },
     headerImage: {
-        height: "35%",
+        height: height * .35,
         backgroundColor: COLORS.primary
     },
     body: {

@@ -45,7 +45,7 @@ export default function BookDetail(props) {
     }
 
     return (
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <ImageBackground
                 blurRadius={8}
                 source={{ uri: data?.image }}

@@ -8,6 +8,8 @@ export default function ChapterList(props) {
     const { navigation } = props
     const [tab, setTab] = useState(0)
     const EBookItem = () => {
+        const title = " Lorem ipsum is a dummy"
+        const img = "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg"
         return (
             <TouchableOpacity
                 onPress={() => {
@@ -16,7 +18,7 @@ export default function ChapterList(props) {
                     }
                     else {
 
-                        navigation.navigate(SCREENS.AudioPlayer)
+                        navigation.navigate(SCREENS.AudioPlayer, { cdImage: img, bookTitle: title })
                     }
                 }}
                 style={styles.row}>

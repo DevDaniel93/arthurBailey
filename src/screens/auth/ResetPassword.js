@@ -34,7 +34,7 @@ const ResetPassword = (props) => {
                         label={"Enter Your Email"}
                         placeholder={"Enter Your Email"}
                         value={email}
-                        onChangeText={(e) => setEmail(txt)}
+                        onChangeText={(txt) => setEmail(txt)}
                         styleTxtArea={{ paddingBottom: SIZES.ten }}
                         labelTxtStyle={{ fontWeight: "700", fontSize: SIZES.fifteen + 3, paddingBottom: SIZES.ten }}
                         inputArea={styles.editTxt}
@@ -124,7 +124,9 @@ const ResetPassword = (props) => {
 
                     </View >
             }
-            <CustomModal isvisible={isVisible}>
+            <CustomModal
+                modalStyle={{ backgroundColor: COLORS.white }}
+                isvisible={isVisible}>
                 <Text style={[styles.modalText]}>
                     Your Password Is Updated!
                 </Text>

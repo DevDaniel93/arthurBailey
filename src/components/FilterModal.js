@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Slider from 'react-native-slider';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 import { COLORS, FONTS, height, SIZES } from '../constants';
 import Icon, { IconType } from './Icons';
 import CustomButton from './CustomButton';
-import { getTheme, IMAGES } from '../constants/theme';
-import { useTranslation } from 'react-i18next';
-import Categories from './Categories';
-import { getFilterProducts, getProducts } from '../redux/slices/products';
-import { setLoading } from '../redux/slices/utils';
+import CheckBox from 'react-native-check-box';
 
+
+
+
+const categories = [
+    { label: 'Best Seller', value: 'bestSeller' },
+    { label: 'Most Sold', value: 'mostSold' },
+    { label: 'Thriller', value: 'thriller' },
+    { label: 'Sci-fi', value: 'sciFi' },
+    { label: 'Mystery', value: 'mystery' },
+    { label: 'History', value: 'history' },
+    { label: 'Short Stories', value: 'shortStories' },
+    { label: 'Romance', value: 'romance' },
+    { label: 'Biography', value: 'biography' },
+    { label: 'Crime', value: 'crime' },
+    { label: 'Social Science', value: 'socialScience' },
+    { label: 'Horror', value: 'horror' },
+    { label: 'Poetry', value: 'poetry' },
+];
 
 
 export default function FilterModal(props) {
     const { modalizeRef, onApply, onCancel, onResetAll } = props;
     const dispatch = useDispatch()
-    const theme = useSelector(state => state.Theme.theme)
-    const currentTheme = getTheme(theme)
-    const { t } = useTranslation();
-    const categories = useSelector(state => state?.categories?.categories)
-    const user = useSelector(state => state.Auth.user)
+    const [selectedCategories, setSelectedCategories] = useState([]);
+
+
+
 
     const [minprice, setMinPrice] = useState(1);
     const [maxprice, setMaxPrice] = useState(1);
@@ -53,59 +66,44 @@ export default function FilterModal(props) {
                     type={IconType.Octicons}
                     onPress={onCancel}
                     style={{
-                        color: currentTheme.defaultTextColor,
+                        color: COLORS.black,
                         fontSize: SIZES.twentyFive * 1.1,
                     }}
                 />
             </View>
 
             <View style={{ flex: 1, alignItems: 'center' }}>
-                <Text style={[FONTS.boldFont22, { color: currentTheme.defaultTextColor }]}>Filter</Text>
+                <Text style={[FONTS.boldFont22, { color: COLORS.black }]}>Filter</Text>
             </View>
 
             <TouchableOpacity
                 onPress={onReset}
                 style={{ flex: 0.2, alignItems: 'flex-end' }}>
-                <Text style={[FONTS.mediumFont14, { color: currentTheme.defaultTextColor }]}>Reset</Text>
+                <Text style={[FONTS.mediumFont14, { color: COLORS.black }]}>Reset</Text>
             </TouchableOpacity>
         </View>
     );
-
-    const getPro = async () => {
-        try {
-            dispatch(setLoading(true))
-            const params = {
-                ...(selectedCategory !== null && { category: selectedCategory }),
-                ...(user !== null && { user_id: user?.user_id }),
-                ...(minprice > 1 && { min_price: minprice }),
-                ...(maxprice > 1 && { max_price: maxprice }),
-            }
-            const page = 1
-
-            const response = await dispatch(getFilterProducts(page, params))
-
-            onApply(response)
-
-            dispatch(setLoading(false))
-
-        } catch (error) {
-            dispatch(setLoading(false))
-
-            console.log("error when try to get product by category")
+    const handleCategoryChange = (category) => {
+        if (selectedCategories.includes(category)) {
+            setSelectedCategories(selectedCategories.filter(item => item !== category));
+        } else {
+            setSelectedCategories([...selectedCategories, category]);
         }
-    }
+    };
+
+
 
     return (
         <Modalize
             ref={modalizeRef}
             withHandle={false}
             modalHeight={height * 0.7}
-            modalStyle={[styles.modalStyle, { backgroundColor: currentTheme.Background }]}
+            modalStyle={[styles.modalStyle, { backgroundColor: COLORS.white }]}
             HeaderComponent={<RenderHeader />}
             scrollViewProps={{ showsVerticalScrollIndicator: false }}>
 
             <View style={{ marginTop: SIZES.twentyFive }}>
-                <Text style={[FONTS.mediumFont18, { color: currentTheme.defaultTextColor }]}>{t("Minimum Price")}</Text>
+                <Text style={[FONTS.mediumFont18, { color: COLORS.black }]}>Minimum Price</Text>
                 <Slider
                     step={1}
                     value={minprice}
@@ -113,22 +111,22 @@ export default function FilterModal(props) {
                     maximumValue={5000}
                     trackStyle={{ height: 2.5 }}
                     thumbTintColor={COLORS.primary}
-                    maximumTrackTintColor={currentTheme.defaultTextColor}
+                    maximumTrackTintColor={COLORS.black}
                     minimumTrackTintColor={COLORS.primary}
                     onValueChange={val => setMinPrice(val)}
                     style={styles.sliderStyle}
                 />
                 <View style={styles.flexRow}>
-                    <Text style={[FONTS.mediumFont12, { color: currentTheme.defaultTextColor }]}>
+                    <Text style={[FONTS.mediumFont12, { color: COLORS.black }]}>
                         ${minprice}
                     </Text>
-                    <Text style={[FONTS.mediumFont12, { color: currentTheme.defaultTextColor }]}>
+                    <Text style={[FONTS.mediumFont12, { color: COLORS.black }]}>
                         $5,000
                     </Text>
                 </View>
             </View>
             <View style={{ marginTop: SIZES.twentyFive }}>
-                <Text style={[FONTS.mediumFont18, { color: currentTheme.defaultTextColor }]}>{t("Maximum Price")}</Text>
+                <Text style={[FONTS.mediumFont18, { color: COLORS.black }]}>Maximum Price</Text>
                 <Slider
                     step={1}
                     value={maxprice}
@@ -136,30 +134,36 @@ export default function FilterModal(props) {
                     maximumValue={5000}
                     trackStyle={{ height: 2.5 }}
                     thumbTintColor={COLORS.primary}
-                    maximumTrackTintColor={currentTheme.defaultTextColor}
+                    maximumTrackTintColor={COLORS.black}
                     minimumTrackTintColor={COLORS.primary}
                     onValueChange={val => setMaxPrice(val)}
                     style={styles.sliderStyle}
                 />
                 <View style={styles.flexRow}>
-                    <Text style={[FONTS.mediumFont12, { color: currentTheme.defaultTextColor }]}>
+                    <Text style={[FONTS.mediumFont12, { color: COLORS.black }]}>
                         ${maxprice}
                     </Text>
-                    <Text style={[FONTS.mediumFont12, { color: currentTheme.defaultTextColor }]}>
+                    <Text style={[FONTS.mediumFont12, { color: COLORS.black }]}>
                         $5,000
                     </Text>
                 </View>
             </View>
-            <Categories hide={true} data={categories} onPress={(item) => {
-                setSelectedCategory(item?.id)
-            }} />
-
+            {categories.map(category => (
+                <View key={category.value} style={styles.categoryContainer}>
+                    <Text style={styles.categoryLabel}>{category.label}</Text>
+                    <CheckBox
+                        checkBoxColor={COLORS.primary}
+                        isChecked={selectedCategories.includes(category.value)}
+                        onClick={() => handleCategoryChange(category.value)}
+                    />
+                </View>
+            ))}
 
             <CustomButton
                 label="Apply"
                 onPress={() => {
                     onCancel();
-                    getPro()
+                    // getPro()
                     // onReset();
                 }}
                 btnStyle={styles.btnStyle}
@@ -176,7 +180,9 @@ const styles = StyleSheet.create({
         paddingVertical: SIZES.twenty,
         paddingHorizontal: SIZES.twenty,
         borderTopLeftRadius: SIZES.twentyFive,
+        borderTopColor: COLORS.primary,
         borderTopRightRadius: SIZES.twentyFive,
+        borderWidth: 1
 
     },
     headerStyle: {
@@ -223,6 +229,16 @@ const styles = StyleSheet.create({
         marginRight: SIZES.twentyFive,
         marginBottom: SIZES.twentyFive,
     },
-
+    categoryContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: SIZES.ten,
+        justifyContent: "space-between"
+    },
+    categoryLabel: {
+        fontSize: SIZES.fifteen * 1.2,
+        marginLeft: 10,
+        color: COLORS.black
+    },
 });
 
