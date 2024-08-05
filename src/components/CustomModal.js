@@ -19,6 +19,7 @@ export default function CustomModal(props) {
 
 const styles = StyleSheet.create({
     innerContainer: {
+        backgroundColor: COLORS.white,
         padding: SIZES.twenty,
         borderRadius: SIZES.ten,
         borderColor: COLORS.primary,

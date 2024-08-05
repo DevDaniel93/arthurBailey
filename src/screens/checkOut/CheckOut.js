@@ -91,7 +91,12 @@ export default function CheckOut(props) {
         return (
             <View style={styles.CartItemRow}>
                 <View style={{ flexDirection: "row" }}>
-                    <Image source={{ uri: item?.image }} style={[styles.img, STYLES.shadow]} />
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                        <Image source={{ uri: item?.image }} style={[item?.type === "audio" ? styles?.CDimg : styles.img, STYLES.shadow]} />
+                        {item?.type === "audio" &&
+                            <View style={styles.cdDot} />
+                        }
+                    </View>
                     <View style={{ justifyContent: "space-between", margin: SIZES.ten, marginVertical: SIZES.twenty }}>
                         <Text numberOfLines={2}
                             style={[styles.productText, { color: COLORS.black, }]}>
@@ -257,9 +262,22 @@ const styles = StyleSheet.create({
     img: {
         width: width * .22,
         height: height * .14,
-
         borderRadius: SIZES.five,
         resizeMode: "contain"
+    },
+    CDimg: {
+        width: width * .22,
+        height: width * .22,
+        borderRadius: width * .22,
+        resizeMode: "cover"
+    },
+    cdDot: {
+        width: SIZES.twentyFive,
+        height: SIZES.twentyFive,
+        borderRadius: SIZES.twentyFive,
+        backgroundColor: COLORS.white,
+        position: "absolute",
+        zIndex: 1000
     },
     productText: {
         fontSize: SIZES.twenty - 3,

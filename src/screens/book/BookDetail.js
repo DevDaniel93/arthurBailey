@@ -8,23 +8,72 @@ import HeaderWithArrow from '../../components/HeaderWithArrow'
 import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCart } from '../../redux/slices/Cart'
-import { SuccessAlert } from '../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 import VideoPlayer from 'react-native-video-controls'
-
+import CheckBox from 'react-native-check-box';
 
 export default function BookDetail(props) {
     const { navigation, route } = props
     const { data } = route?.params
     const dispatch = useDispatch()
     const [isVisible, setIsVisible] = useState(false)
+    const [addToCartModal, setAddToCartModal] = useState(false)
+    const [selectedOption, setSelectedOptions] = useState([]);
+
 
 
 
     const addToCart = async () => {
         try {
-            dispatch(addCart(data))
-            SuccessAlert("Add to cart successfully")
-            navigation.goBack()
+            if (selectedOption?.length > 0) {
+                if (selectedOption.includes("E-book")) {
+                    const cartItem =
+                    {
+                        id: data?.id,
+                        title: data?.title,
+                        image: data?.image,
+                        type: "E-book",
+                        price: data?.price,
+                        arthur: data?.arthur,
+                        rating: data?.rating,
+                        pages: data?.pages,
+                        readers: data?.readers,
+                        description: data?.description
+                    }
+
+
+                    dispatch(addCart(cartItem))
+
+                }
+                if (selectedOption.includes("audio")) {
+                    const cartItem =
+                    {
+                        id: data?.id,
+                        title: data?.title,
+                        image: data?.image,
+                        type: "audio",
+                        price: data?.price,
+                        arthur: data?.arthur,
+                        rating: data?.rating,
+                        pages: data?.pages,
+                        readers: data?.readers,
+                        description: data?.description
+                    }
+                    dispatch(addCart(cartItem))
+
+                }
+                SuccessAlert("Add to cart successfully")
+                navigation.goBack()
+                setAddToCartModal(!addToCartModal)
+            }
+            else {
+                ErrorAlert("Please select a Book type")
+            }
+
+
+
+            // dispatch(addCart(data))
+
         } catch (error) {
             console.log("error", error)
         }
@@ -44,6 +93,57 @@ export default function BookDetail(props) {
         )
     }
 
+    const CartOption = ({ type }) => {
+        return (
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+                <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                        <Image source={{ uri: data?.image }}
+                            resizeMode="cover"
+                            style={type !== "audio" ? {
+                                width: SIZES.fifty,
+                                height: SIZES.fifty * 1.3
+                            } : {
+                                width: SIZES.fifty,
+                                height: SIZES.fifty,
+                                borderRadius: SIZES.fifty
+                            }} />
+                        {
+                            type === "audio" &&
+                            <View style={styles.cdDot} />
+                        }
+
+                    </View>
+                    <View style={{ padding: SIZES.ten, width: width * .55, }}>
+                        <Text numberOfLines={1} style={{ marginBottom: SIZES.ten, fontSize: SIZES.fifteen * 1.1, color: COLORS.black, fontWeight: "600" }}>
+                            {data?.title}
+                        </Text>
+                        <Text style={{ fontSize: SIZES.fifteen * 1.1, color: COLORS.black, fontWeight: "600" }}>
+                            Price:  {data?.price}
+                        </Text>
+                    </View>
+                </View>
+                <View style={{ alignItems: "flex-end" }}>
+                    <CheckBox
+                        checkBoxColor={COLORS.primary}
+                        isChecked={selectedOption.includes(type)}
+                        onClick={() => handleCartOption(type)}
+                    />
+                </View>
+
+
+
+            </View>
+        )
+    }
+
+    const handleCartOption = (Option) => {
+        if (selectedOption.includes(Option)) {
+            setSelectedOptions(selectedOption.filter(item => item !== Option));
+        } else {
+            setSelectedOptions([...selectedOption, Option]);
+        }
+    }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <ImageBackground
@@ -105,7 +205,7 @@ export default function BookDetail(props) {
                 </Text>
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                     <CustomButton
-                        onPress={() => addToCart()}
+                        onPress={() => setAddToCartModal(!addToCartModal)}
                         label={"Add to Cart"}
                         btnStyle={{ width: width * .35 }} />
                     <CustomButton
@@ -134,6 +234,7 @@ export default function BookDetail(props) {
                     </TouchableOpacity>
                 </View>
             </View>
+            {/* =======================Video player modal========================== */}
             <CustomModal isvisible={isVisible}
                 modalStyle={{
                     padding: 0,
@@ -159,6 +260,48 @@ export default function BookDetail(props) {
                         disableBack={true}
                         disableFullscreen={true}
                     />
+                </View>
+            </CustomModal>
+            {/* =======================Add to cart modal========================== */}
+            <CustomModal isvisible={addToCartModal}
+                modalStyle={{
+                    // padding: 0,
+                    backgroundColor: COLORS.white
+                }}
+            >
+                <View>
+                    <TouchableOpacity
+                        onPress={() => setAddToCartModal(false)}
+                        style={{
+                            position: "absolute",
+                            left: SIZES.ten,
+                            zIndex: 1000
+
+                        }}>
+                        <Icon
+                            name={"cross"}
+                            type={IconType.Entypo}
+                            color={COLORS.black}
+                        />
+                    </TouchableOpacity>
+
+                    <Text style={styles.cartHeader}>
+                        Book Format
+                    </Text>
+                    <View style={{ paddingVertical: SIZES.twenty }} >
+                        <CartOption type={"E-book"} />
+                        <View style={{ borderWidth: 1, marginVertical: SIZES.fifteen, borderColor: COLORS.primary }} />
+                        <CartOption type={"audio"} />
+                        <CustomButton
+                            onPress={() => {
+                                addToCart()
+                            }}
+                            btnStyle={{ marginTop: SIZES.twenty }}
+                            label={"Confirm"}
+                        />
+                    </View>
+
+
                 </View>
             </CustomModal>
         </ScrollView>
@@ -240,4 +383,20 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30
     },
+    cartHeader: {
+        color: COLORS.black,
+        fontFamily: FONTFAMILY.Poppins,
+        fontSize: SIZES.fifteen * 1.2,
+        fontWeight: "bold",
+        textAlign: "center"
+
+    },
+    cdDot: {
+        width: SIZES.twenty,
+        height: SIZES.twenty,
+        borderRadius: SIZES.twentyFive,
+        backgroundColor: COLORS.white,
+        position: "absolute",
+        zIndex: 1000
+    }
 })
