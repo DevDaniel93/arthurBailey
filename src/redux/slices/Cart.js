@@ -8,7 +8,7 @@ export const cartSlice = createSlice({
     reducers: {
         addCart: (state, action) => {
             const existingProductIndex = state.cart.findIndex(
-                item => item.id === action.payload.id
+                item => item.id === action.payload.id && item.type === action.payload.type
             );
             if (existingProductIndex !== -1) {
                 // Update the existing product
@@ -26,7 +26,9 @@ export const cartSlice = createSlice({
             state.cart = []
         },
         removeCartItem: (state, action) => {
-            state.cart = state.cart.filter(item => item.id !== action.payload);
+            state.cart = state.cart.filter(item =>
+                !(item.id === action.payload.id && item.type === action.payload.type)
+            );
         },
         updateCartItem: (state, action) => {
             const existingProductIndex = state.cart.findIndex(

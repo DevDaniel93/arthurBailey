@@ -15,7 +15,7 @@ export default function MyCart(props) {
     const totalAmount = useSelector(selectTotalAmount);
     const dispatch = useDispatch()
     const [isvisible, setIsvisible] = useState(false)
-    const [selectCartid, setSelectCardId] = useState()
+    const [selectCart, setSelectCard] = useState()
     const CartItem = ({ item }) => {
 
         return (
@@ -46,7 +46,7 @@ export default function MyCart(props) {
                 <TouchableOpacity
                     onPress={() => {
                         setIsvisible(!isvisible)
-                        setSelectCardId(item?.id)
+                        setSelectCard(item)
                     }}
                     style={{ backgroundColor: COLORS.primary, justifyContent: "center", paddingHorizontal: SIZES.ten, borderRadius: SIZES.ten }}>
                     <Icon
@@ -84,7 +84,7 @@ export default function MyCart(props) {
                         <CustomButton btnStyle={[styles.btnStyle, { backgroundColor: COLORS.Background }]}
                             txtstyle={{ color: COLORS.primary }}
                             onPress={() => {
-                                dispatch(removeCartItem(selectCartid));
+                                dispatch(removeCartItem(selectCart));
 
                                 setIsvisible(!isvisible)
                             }}
