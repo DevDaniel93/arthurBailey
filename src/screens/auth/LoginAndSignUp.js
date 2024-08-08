@@ -5,21 +5,59 @@ import { COLORS, height, IMAGES, SCREENS, SIZES } from '../../constants'
 import EditText from '../../components/EditText'
 import { IconType } from '../../components'
 import { SuccessAlert } from '../../utils/utils'
+import { useDispatch } from 'react-redux'
+import Loading from '../../components/Loading'
+import { login, Register } from '../../redux/slices/auth'
 
 const LoginAndSignUp = (props) => {
-
+    const dispatch = useDispatch()
     const [tabs, setTabs] = useState(1)
     const [userNameSignUp, setUserNameSignUp] = useState('')
     const [emailSignUp, setEmailSignUp] = useState('')
     const [passwordSignUp, setPasswordSignUp] = useState('')
     const [confirmPasswordSignUp, setConfirmPasswordSignUp] = useState('')
-    const [emailLogin, setEmailLogin] = useState('')
-    const [passwordLogin, setPasswordLogin] = useState('')
+    const [emailLogin, setEmailLogin] = useState(__DEV__ ? "user@gmail.com" : "")
+    const [loading, setLoading] = useState(false)
+    const [passwordLogin, setPasswordLogin] = useState(__DEV__ ? "password" : "")
     const { navigation } = props
+
+    const onloginPress = async () => {
+        try {
+            setLoading(true)
+            const data = {
+                email: emailLogin,
+                password: passwordLogin
+            }
+            await dispatch(login(data))
+            setLoading(false)
+
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+        }
+    }
+    const onSignUpPress = async () => {
+        try {
+            setLoading(true)
+            const data = {
+                user_name: userNameSignUp,
+                email: emailSignUp,
+                confirm_password: confirmPasswordSignUp,
+                password: passwordSignUp
+
+            }
+            await dispatch(Register(data))
+            setLoading(false)
+
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+        }
+    }
 
     return (
         <ScrollView style={styles.container}>
-
+            <Loading loading={loading} />
             <View style={styles.headerImage}>
                 <ImageBackground
                     style={{ flex: 1, alignItems: "center", justifyContent: "center", bottom: SIZES.ten }}
@@ -85,7 +123,9 @@ const LoginAndSignUp = (props) => {
                             type={IconType.MaterialIcons}
                             color={COLORS.primary}
                         />
-                        <CustomButton label={"Sign Up"} onPress={() => navigation.navigate(SCREENS.Profile)} />
+                        <CustomButton label={"Sign Up"} onPress={() =>
+                            onSignUpPress()
+                        } />
                     </>
                     :
                     <>
@@ -122,7 +162,8 @@ const LoginAndSignUp = (props) => {
                         <CustomButton
                             label={"Log In"}
                             onPress={() =>
-                                navigation.navigate(SCREENS.Drawer)
+                                onloginPress()
+                                // navigation.navigate(SCREENS.Drawer)
                             }
                         />
                     </>

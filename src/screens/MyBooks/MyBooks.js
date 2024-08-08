@@ -1,20 +1,52 @@
-import { Image, ImageBackground, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useRef } from 'react'
+import { FlatList, Image, ImageBackground, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react'
 import CustomHeader from '../../components/CustomHeader'
-import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } from '../../constants'
+import { COLORS, CONSTANTS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, STYLES, width } from '../../constants'
 import SearchFilter from '../../components/SearchFilter'
 import { Icon, IconType } from '../../components'
-
-
 import FilterModal from '../../components/FilterModal'
+import { myBooks } from '../../redux/slices/Books'
+import { useDispatch, useSelector } from 'react-redux'
+import Loading from '../../components/Loading'
 
 
 export default function MyBooks(props) {
-    const filterRef = useRef();
+    const token = useSelector((state) => state?.Auth?.token)
+    const dispatch = useDispatch()
+    const [search, setSearch] = useState('')
+    const [data, setData] = useState([])
+    const [filterProducts, setFilterProducts] = useState(data)
+    const [loading, setLoading] = useState(false)
+    console.log(filterProducts)
+    const getMyBooks = async () => {
+        try {
+            setLoading(true)
+            const response = await dispatch(myBooks(token))
+            console.log(response?.data)
+            setData(response?.data)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
+    }
 
-    const handleOpenDrawer = () => {
-        filterRef.current?.openDrawer();
-    };
+    useEffect(() => {
+        getMyBooks()
+    }, [])
+    const filterProductsBySearch = (searchText) => {
+        if (searchText !== "") {
+            const filtered = data.filter(data =>
+                data?.title.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setFilterProducts(filtered);
+        } else {
+            setFilterProducts(data);
+        }
+    }
+    useEffect(() => {
+        filterProductsBySearch(search);
+    }, [search, data]);
 
     const { navigation } = props
     const StarRating = ({ rating, maxRating = 5 }) => {
@@ -36,7 +68,8 @@ export default function MyBooks(props) {
             </View>
         );
     };
-    const LibraryCard = () => {
+    const LibraryCard = ({ item }) => {
+        console.log({ item })
         return (
             <View style={{ marginTop: SIZES.twenty, flexDirection: "row", alignItems: "center" }}>
                 <Image
@@ -45,19 +78,19 @@ export default function MyBooks(props) {
                 />
 
                 <Image
-                    source={{ uri: "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg" }}
+                    source={{ uri: CONSTANTS.API_URLS.IMAGE_BASE + item?.cover }}
                     style={styles.img}
                 />
                 <View style={styles.content}>
                     <Text numberOfLines={1} style={styles.heading}>
-                        how to Overcome devil kjbaks asjkbjd asjd  ajs
+                        {item?.title}
                     </Text>
                     <Text numberOfLines={1} style={styles.Subheading}>
-                        By Arthur Bailey
+                        By {item?.author}
                     </Text>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate(SCREENS.ChapterList)
+                            navigation.navigate(SCREENS.ChapterList, { id: item?.id })
                         }}
                     >
                         <Text numberOfLines={1} style={[styles.heading, { textDecorationLine: "underline" }]}>
@@ -84,7 +117,7 @@ export default function MyBooks(props) {
                     </View> */}
 
                 </View>
-                <StarRating rating={4} />
+                <StarRating rating={item?.rating} />
 
             </View>
         )
@@ -104,15 +137,20 @@ export default function MyBooks(props) {
     const modal = React.useRef(null);
     return (
         <View style={{ flex: 1 }}>
-
+            <Loading loading={loading} />
 
             <ScrollView style={[STYLES.container, { paddingBottom: SIZES.fifty }]}>
                 <CustomHeader label={"My Books"} />
                 <View style={{ flexDirection: "row", alignItems: "center", width: "85%" }}>
-                    <SearchFilter />
+                    <SearchFilter
+                        value={search}
+                        onChangeText={(e) => {
+                            setSearch(e);
+                        }}
+                    />
 
                     <TouchableOpacity
-                        // onPress={handleOpenDrawer}
+
                         onPress={() => {
                             if (modal.current) {
                                 modal.current.open();
@@ -127,12 +165,14 @@ export default function MyBooks(props) {
                         />
                     </TouchableOpacity>
                 </View>
-                <LibraryCard />
-                <LibraryCard />
-                <LibraryCard />
-                <LibraryCard />
-                <LibraryCard />
-                <LibraryCard />
+                <FlatList
+                    style={{ marginBottom: SIZES.fifty }}
+                    data={filterProducts}
+                    keyExtractor={item => item.toString()}
+
+                    renderItem={LibraryCard}
+                />
+
                 <View style={{ height: height * .05 }} />
             </ScrollView >
             <FilterModal modalizeRef={modal} onApply={onApply} onResetAll={onReset} onCancel={onCancel} />

@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { COLORS, SCREENS } from "../constants";
 
 import LoginAndSignUp from "../screens/auth/LoginAndSignUp";
@@ -13,6 +13,7 @@ import MyCart from "../screens/checkOut/MyCart";
 import AudioPlay from "../screens/playList/AudioPlay";
 import ChapterList from "../screens/SavedBooks/ChapterList";
 import Chapters from "../screens/SavedBooks/Chapters";
+import { useSelector } from "react-redux";
 
 
 
@@ -21,6 +22,7 @@ const Stack = createNativeStackNavigator();
 
 
 export default function MainNavigation() {
+    const token = useSelector((state) => state?.Auth?.token)
 
 
     const screenOptions = {
@@ -31,6 +33,9 @@ export default function MainNavigation() {
             // backgroundColor: '#121212',
         },
     };
+    useEffect(() => {
+
+    }, [token])
 
 
 
@@ -41,16 +46,23 @@ export default function MainNavigation() {
                 screenOptions={screenOptions}
                 initialRouteName={SCREENS.LoginAndSignUp}
             >
-                <Stack.Screen name={SCREENS.Drawer} component={DrawerNavigator} />
-                <Stack.Screen name={SCREENS.LoginAndSignUp} component={LoginAndSignUp} />
-                <Stack.Screen name={SCREENS.ResetPassword} component={ResetPassword} />
-                <Stack.Screen name={SCREENS.EditProfile} component={EditProfile} />
-                <Stack.Screen name={SCREENS.BookDetail} component={BookDetail} />
-                <Stack.Screen name={SCREENS.CheckOut} component={CheckOut} />
-                <Stack.Screen name={SCREENS.MyCart} component={MyCart} />
-                <Stack.Screen name={SCREENS.AudioPlayer} component={AudioPlay} />
-                <Stack.Screen name={SCREENS.ChapterList} component={ChapterList} />
-                <Stack.Screen name={SCREENS.Chapter} component={Chapters} />
+                {token === null ?
+                    <>
+                        <Stack.Screen name={SCREENS.LoginAndSignUp} component={LoginAndSignUp} />
+                        <Stack.Screen name={SCREENS.ResetPassword} component={ResetPassword} />
+                    </> :
+                    <>
+                        <Stack.Screen name={SCREENS.Drawer} component={DrawerNavigator} />
+                        <Stack.Screen name={SCREENS.EditProfile} component={EditProfile} />
+                        <Stack.Screen name={SCREENS.BookDetail} component={BookDetail} />
+                        <Stack.Screen name={SCREENS.CheckOut} component={CheckOut} />
+                        <Stack.Screen name={SCREENS.MyCart} component={MyCart} />
+                        <Stack.Screen name={SCREENS.AudioPlayer} component={AudioPlay} />
+                        <Stack.Screen name={SCREENS.ChapterList} component={ChapterList} />
+                        <Stack.Screen name={SCREENS.Chapter} component={Chapters} />
+                    </>
+
+                }
 
             </Stack.Navigator>
 

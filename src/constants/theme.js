@@ -253,12 +253,16 @@ export const CONSTANTS = {
 
     API_URLS: {
 
-        BASE: "https://custom3.mystagingserver.site/digi-cart-app/wp-json",
-        LOGIN: "/api/login",
-        REGISTER: "/api/register",
-        FORGOT_PASSWORD: "/api/forgot_password",
-        VERIFY_OTP: "/api/otp_verification",
-        RESET_PASSWORD: "/api/reset_password",
+        BASE: "https://custom3.mystagingserver.site/arthur-bailey/public/api/",
+        IMAGE_BASE: "https://custom3.mystagingserver.site/arthur-bailey/public/",
+        LOGIN: "login-user",
+        REGISTER: "user-register",
+        FORGOT_PASSWORD: "forgot_password",
+        VERIFY_OTP: "otp_verification",
+        RESET_PASSWORD: "reset_password",
+        GET_BOOKS: "get-books",
+        GET_BOOK: "get-book",
+        MY_BOOKS: "my-books"
 
 
     },

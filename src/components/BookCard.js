@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-
+import React from 'react'
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { COLORS, FONTFAMILY, SIZES, STYLES, height, width } from '../constants'
-import { IMAGES, SCREENS } from '../constants/theme'
-import Icon, { IconType } from './Icons'
+import { COLORS, FONTFAMILY, SIZES, height, width } from '../constants'
+import { CONSTANTS, IMAGES, SCREENS } from '../constants/theme'
+
 import CustomButton from './CustomButton'
 
 const BookCard = ({ item }) => {
@@ -17,14 +16,14 @@ const BookCard = ({ item }) => {
                 style={styles.InnerConatiner}>
                 <Image
                     style={styles.imageCover}
-                    source={{ uri: item?.image }}
+                    source={{ uri: CONSTANTS.API_URLS.IMAGE_BASE + item?.cover }}
                 />
                 <View
                 >
                     <Text numberOfLines={2} style={styles.txt}>{item?.title}</Text>
                     <CustomButton
                         onPress={() => {
-                            navigation.navigate(SCREENS.BookDetail, { data: item })
+                            navigation.navigate(SCREENS.BookDetail, { id: item?.id })
                         }}
 
                         label={"Details"} btnStyle={styles.btn} txtstyle={styles.btnTxt} />

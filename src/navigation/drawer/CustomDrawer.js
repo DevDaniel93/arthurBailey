@@ -9,6 +9,7 @@ import { Icon, IconType } from '../../components';
 import { Menu } from '../../constants/DrawerMenu';
 import CustomModal from '../../components/CustomModal';
 import CustomButton from '../../components/CustomButton';
+import { logout, removeAccessToken } from '../../redux/slices/auth';
 
 
 export default CustomDrawer = (props) => {
@@ -81,7 +82,7 @@ export default CustomDrawer = (props) => {
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <CustomButton
                             onPress={() => {
-                                navigation.navigate(SCREENS.LoginAndSignUp)
+                                dispatch(logout())
                                 setSignOutModal(!signOutModal)
                             }}
                             btnStyle={styles?.btnStyle}
@@ -96,8 +97,6 @@ export default CustomDrawer = (props) => {
                             label={"No"}
                         />
                     </View>
-
-
                 </View>
             </CustomModal>
 

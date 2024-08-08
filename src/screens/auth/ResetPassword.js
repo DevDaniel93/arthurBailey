@@ -7,20 +7,90 @@ import EditText from '../../components/EditText'
 import HeaderWithArrow from '../../components/HeaderWithArrow'
 import OtpInput from '../../components/OtpInput'
 import { COLORS, SCREENS, SIZES, STYLES } from '../../constants'
+import { useDispatch } from 'react-redux'
+import Loading from '../../components/Loading'
+import { ResendCode, ResetPwd, VerifyEmail, VerifyOTP } from '../../redux/slices/auth'
 
 const ResetPassword = (props) => {
+    const dispatch = useDispatch()
     const [moveToNext, setMoveToNext] = useState(0)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [email, setEmail] = useState('')
+    const [otp, setOtp] = useState('')
     const [isVisible, setIsVisible] = useState(false)
     const { navigation } = props
+    const [loading, setLoading] = useState(false)
 
-    const handleCodeFilled = () => { }
+    const handleCodeFilled = (code) => {
+        setOtp(code)
+    }
 
+    // ====================== Forgot password==========================
+    const Forgotpassword = async () => {
+        try {
+            setLoading(true)
+            const data = {
+                email: email
+            }
+            await dispatch(VerifyEmail(data))
+            setMoveToNext(1)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+    // ====================== resend code==========================
+    const resendCode = async () => {
+        try {
+            setLoading(true)
+            const data = {
+                email: email
+            }
+            await dispatch(ResendCode(data))
+
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
+    // ====================== OTP Verify=========================
+    const OtpVerify = async () => {
+        try {
+            setLoading(true)
+            const data = {
+                email: email,
+                otp: otp
+            }
+            await dispatch(VerifyOTP(data))
+            setMoveToNext(2)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+    // ====================== reset Password=========================
+    const resetPassword = async () => {
+        try {
+            setLoading(true)
+            const data = {
+                email: email,
+                otp: otp,
+                password: password,
+                password_confirmation: confirmPassword
+            }
+            await dispatch(ResetPwd(data))
+            setIsVisible(true)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
 
     return (
         <View style={STYLES.container}>
+            <Loading loading={loading} />
             <HeaderWithArrow label={"Reset Password"} />
             {moveToNext === 0 ?
                 <View style={{ flex: 1 }}>
@@ -40,7 +110,8 @@ const ResetPassword = (props) => {
                         inputArea={styles.editTxt}
                     />
                     <CustomButton
-                        onPress={() => setMoveToNext(1)}
+                        onPress={async () =>
+                            Forgotpassword()}
                         label={"Continue"}
                     />
                 </View>
@@ -61,7 +132,7 @@ const ResetPassword = (props) => {
 
                             <CustomButton
                                 btnStyle={{ marginVertical: SIZES.ten }}
-                                onPress={() => setMoveToNext(2)}
+                                onPress={() => OtpVerify()}
                                 label={'Continue'}
                             />
                             <View
@@ -70,7 +141,9 @@ const ResetPassword = (props) => {
                                     style={{ textAlign: "center", paddingTop: SIZES.twenty, fontSize: SIZES.fifteen + 1, fontWeight: "600", }}>
                                     Haven’t got the email yet?
                                 </Text>
-                                <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+                                <TouchableOpacity
+                                    onPress={() => resendCode()}
+                                    style={{ justifyContent: "flex-end" }}>
                                     <Text
                                         style={{ color: COLORS.primary, textDecorationLine: 'underline', fontSize: SIZES.fifteen + 1, fontWeight: "600", }}>
                                         {" "}Resend code
@@ -118,7 +191,9 @@ const ResetPassword = (props) => {
                             <CustomButton
                                 btnStyle={styles.btn}
                                 label={'Update Password'}
-                                onPress={() => setIsVisible(true)}
+                                onPress={() =>
+                                    resetPassword()
+                                }
                             />
                         </View >
 

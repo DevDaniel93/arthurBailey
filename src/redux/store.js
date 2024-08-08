@@ -3,7 +3,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthReducer from './slices/auth';
 import CartReducer from './slices/Cart';
-
+import ContentReducer from './slices/content';
+import BookReducer from './slices/Books';
 
 
 const persistConfig = {
@@ -15,7 +16,9 @@ const persistConfig = {
 const rootReducer = combineReducers({
 
     Auth: AuthReducer,
-    Cart: CartReducer
+    Cart: CartReducer,
+    Content: ContentReducer,
+    Book: BookReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

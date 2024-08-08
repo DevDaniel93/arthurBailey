@@ -3,12 +3,7 @@ import { CONSTANTS } from "../../constants";
 const FormData = require('form-data');
 
 
-const login = (email, password) => {
-
-    const requestData = {
-        login: email,
-        password: password,
-    }
+const login = (data) => {
 
     const onSuccess = ({ data }) => {
         return data;
@@ -18,18 +13,14 @@ const login = (email, password) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
 
-        },
         headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
         },
     }
     return axios.post(
         CONSTANTS.API_URLS.BASE + CONSTANTS.API_URLS.LOGIN,
-        requestData,
+        data,
         options
     ).then(onSuccess)
         .catch(onFailure);
@@ -46,11 +37,7 @@ const Register = (data) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
 
-        },
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -71,11 +58,7 @@ const VerifyEmail = (data) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
 
-        },
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -97,11 +80,7 @@ const VerifyOTP = (data) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
 
-        },
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -123,11 +102,7 @@ const ResetPassword = (data) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
 
-        },
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -151,10 +126,7 @@ const updateProfile = (data) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
-        },
+
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -178,10 +150,7 @@ const changePassword = (data) => {
         throw error;
     };
     const options = {
-        params: {
-            consumer_key: CONSTANTS.API_URLS.Consumer_key,
-            consumer_secret: CONSTANTS.API_URLS.Consumer_secret,
-        },
+
         headers: {
             'Content-Type': 'multipart/form-data',
         },

@@ -5,21 +5,44 @@ import { Icon, IconType } from '../../components'
 import CustomButton from '../../components/CustomButton'
 import CustomModal from '../../components/CustomModal'
 import HeaderWithArrow from '../../components/HeaderWithArrow'
-import { COLORS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
+import { COLORS, CONSTANTS, FONTFAMILY, height, IMAGES, SCREENS, SIZES, width } from '../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCart } from '../../redux/slices/Cart'
 import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 import VideoPlayer from 'react-native-video-controls'
 import CheckBox from 'react-native-check-box';
+import { getBookDetail } from '../../redux/slices/Books'
+import Loading from '../../components/Loading'
 
 export default function BookDetail(props) {
     const { navigation, route } = props
-    const { data } = route?.params
+    const { id } = route?.params
+    const token = useSelector((state) => state?.Auth?.token)
     const dispatch = useDispatch()
     const [isVisible, setIsVisible] = useState(false)
     const [addToCartModal, setAddToCartModal] = useState(false)
     const [selectedOption, setSelectedOptions] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
 
+    const geBookDetail = async () => {
+        try {
+            setLoading(true)
+            const response = await dispatch(getBookDetail(id, token))
+            console.log(response?.data)
+            setData(response?.data)
+            console.log({ response })
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+
+        }
+    }
+
+    useEffect(() => {
+        geBookDetail()
+    }, [])
 
 
 
@@ -96,9 +119,10 @@ export default function BookDetail(props) {
     const CartOption = ({ type }) => {
         return (
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+
                 <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Image source={{ uri: data?.image }}
+                        <Image source={{ uri: CONSTANTS.API_URLS.IMAGE_BASE + data?.cover }}
                             resizeMode="cover"
                             style={type !== "audio" ? {
                                 width: SIZES.fifty,
@@ -146,16 +170,17 @@ export default function BookDetail(props) {
     }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: COLORS.white }}>
+            <Loading loading={loading} />
             <ImageBackground
                 blurRadius={8}
-                source={{ uri: data?.image }}
+                source={{ uri: CONSTANTS.API_URLS.IMAGE_BASE + data?.cover }}
                 style={styles.imageCover}
             >
                 <HeaderWithArrow IconStyle={{ backgroundColor: COLORS.white, opacity: 0.6 }} iconColor={COLORS.black} />
                 <View style={{ flexDirection: "row", marginTop: SIZES.twenty }}>
                     <Image
                         style={styles.book}
-                        source={{ uri: data?.image }}
+                        source={{ uri: CONSTANTS.API_URLS.IMAGE_BASE + data?.cover }}
                     />
                     <View style={{ flex: 1 }}>
                         <View style={{ flex: 1, width: "100%", justifyContent: "center", alignItems: "center" }}>
@@ -187,7 +212,7 @@ export default function BookDetail(props) {
                     {data?.title}
                 </Text>
                 <Text style={styles.Subheading}>
-                    By {data?.arthur} {" "}
+                    By {data?.author} {" "}
                     <Text
                         style={{
                             textDecorationLine: "underline",
@@ -256,7 +281,7 @@ export default function BookDetail(props) {
                         />
                     </TouchableOpacity>
                     <VideoPlayer
-                        source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
+                        source={{ uri: data?.trailer }}
                         disableBack={true}
                         disableFullscreen={true}
                     />
